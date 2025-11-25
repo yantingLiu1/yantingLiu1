@@ -9,12 +9,12 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
     :root {
-      --primary: #003399; /* RGB(0, 51, 153) */
-      --primary-light: #1A4DB3;
-      --secondary: #4D7FFF;
-      --accent: #3366CC;
-      --dark: #001133;
-      --light: #F5F8FF;
+      --primary: #1E3765; /* New primary color */
+      --primary-light: #2A4A7A; /* Lighter shade of primary */
+      --secondary: #4A6BA5; /* Complementary secondary color */
+      --accent: #5A7BB0; /* Accent color */
+      --dark: #0A1A36; /* Darker shade for text */
+      --light: #F0F4FA; /* Light background */
       --gray: #6C757D;
       --light-gray: #E9ECEF;
       --white: #FFFFFF;
@@ -92,7 +92,7 @@
     header {
       padding: 80px 20px 60px;
       text-align: center;
-      background: linear-gradient(135deg, rgba(0, 51, 153, 0.85), rgba(26, 77, 179, 0.85));
+      background: linear-gradient(135deg, rgba(30, 55, 101, 0.85), rgba(42, 74, 122, 0.85)); /* Updated gradient */
       color: white;
       position: relative;
       overflow: hidden;
@@ -108,7 +108,7 @@
 
     header h1 {
       margin: 0;
-      font-size: 5rem;
+      font-size: 4rem;
       font-weight: 700;
       letter-spacing: -0.5px;
       margin-bottom: 10px;
@@ -121,14 +121,18 @@
       margin-bottom: 15px;
     }
 
+    /* Updated tagline style - removed background circle and changed font */
     .tagline {
       display: inline-block;
-      padding: 8px 20px;
-      background: rgba(255, 255, 255, 0.15);
-      border-radius: 50px;
-      font-size: 0.9rem;
-      backdrop-filter: blur(10px);
-      border: 1px solid rgba(255, 255, 255, 0.2);
+      padding: 0; /* Removed padding */
+      background: transparent; /* Removed background */
+      border-radius: 0; /* Removed border radius */
+      font-size: 1rem; /* Adjusted font size */
+      backdrop-filter: none; /* Removed backdrop filter */
+      border: none; /* Removed border */
+      font-family: 'Inter', sans-serif; /* Same as header p */
+      font-weight: 300; /* Lighter weight for subtlety */
+      letter-spacing: 0.5px; /* Slightly increased letter spacing */
     }
 
     nav {
@@ -437,11 +441,15 @@
       }
       
       header h1 {
-        font-size: 5rem;
+        font-size: 4rem;
       }
       
       header p {
         font-size: 1rem;
+      }
+      
+      .tagline {
+        font-size: 0.9rem; /* Adjusted for mobile */
       }
       
       nav {
@@ -666,7 +674,7 @@
           this.vx = (Math.random() - 0.5) * 1; 
           this.vy = (Math.random() - 0.5) * 1; 
           this.radius = Math.random() * 3 + 2;
-          this.color = `rgba(0, 51, 153, ${Math.random() * 0.4 + 0.1})`;
+          this.color = `rgba(30, 55, 101, ${Math.random() * 0.4 + 0.1})`; // Updated to new primary color
         }
         
         update() {
@@ -716,7 +724,7 @@
               nodeCtx.beginPath();
               nodeCtx.moveTo(nodes[i].x, nodes[i].y);
               nodeCtx.lineTo(nodes[j].x, nodes[j].y);
-              nodeCtx.strokeStyle = `rgba(0, 51, 153, ${opacity * 0.15})`;
+              nodeCtx.strokeStyle = `rgba(30, 55, 101, ${opacity * 0.15})`; // Updated to new primary color
               nodeCtx.lineWidth = 0.8;
               nodeCtx.stroke();
             }
@@ -769,7 +777,7 @@
           this.opacity = 0.8;
           this.fadeSpeed = Math.random() * 0.02 + 0.01;
           this.smoothness = 0.1 + Math.random() * 0.1; // Smooth movement
-          this.color = `rgba(77, 127, 255, ${this.opacity})`; /* Using secondary color */
+          this.color = `rgba(74, 107, 165, ${this.opacity})`; /* Updated to new secondary color */
         }
         
         update(targetX, targetY) {
@@ -783,7 +791,7 @@
           // Fade out
           this.opacity -= this.fadeSpeed;
           if (this.opacity < 0) this.opacity = 0;
-          this.color = `rgba(77, 127, 255, ${this.opacity})`;
+          this.color = `rgba(74, 107, 165, ${this.opacity})`;
         }
         
         draw() {
