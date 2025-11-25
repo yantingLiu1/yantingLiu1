@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Yanting Liu — Portfolio</title>
-  <link href="https://fonts.googleapis.com/css2?family=Science+Gothic:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Saira:wght@400;500;600;700&family=Sofia+Sans+Extra+Condensed:wght@400;500;600;700&family=Julius+Sans+One&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
     :root {
@@ -40,9 +40,25 @@
       position: relative;
     }
 
-    /* Science Gothic for all headers */
-    h1, h2, h3, h4, h5, h6 {
-      font-family: 'Science Gothic', sans-serif;
+    /* Font assignments */
+    header h1 {
+      font-family: 'Saira', sans-serif;
+    }
+    
+    nav a {
+      font-family: 'Sofia Sans Extra Condensed', sans-serif;
+    }
+    
+    h2 {
+      font-family: 'Julius Sans One', sans-serif;
+    }
+    
+    .card h3 {
+      font-family: 'Julius Sans One', sans-serif;
+    }
+    
+    .contact-info h3 {
+      font-family: 'Julius Sans One', sans-serif;
     }
 
     /* Full-page node canvas */
@@ -52,8 +68,8 @@
       left: 0;
       width: 100%;
       height: 100%;
-      z-index: -1;
-      pointer-events: none;
+      z-index: -1; /* Behind all content */
+      pointer-events: none; /* Allow clicking through canvas */
     }
 
     /* Mouse trail canvas - highest priority */
@@ -129,7 +145,8 @@
       transition: var(--transition);
       position: relative;
       padding: 5px 0;
-      font-size: 0.9rem;
+      font-size: 1.1rem; /* Slightly larger for condensed font */
+      letter-spacing: 0.5px;
     }
 
     nav a::after {
@@ -170,6 +187,7 @@
       color: var(--primary);
       text-align: center;
       position: relative;
+      letter-spacing: 1px;
     }
 
     h2::after {
@@ -220,6 +238,7 @@
       display: flex;
       align-items: center;
       gap: 10px;
+      letter-spacing: 0.5px;
     }
 
     .card-icon {
@@ -333,6 +352,7 @@
       margin-bottom: 5px;
       font-size: 1.1rem;
       text-align: center;
+      letter-spacing: 0.5px;
     }
 
     .contact-info p {
@@ -418,6 +438,10 @@
       nav {
         gap: 15px;
         flex-wrap: wrap;
+      }
+      
+      nav a {
+        font-size: 1rem;
       }
       
       section {
