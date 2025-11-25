@@ -4,16 +4,16 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Yanting Liu — Portfolio</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Science+Gothic:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
     :root {
-      --primary: #1E3765;
-      --primary-light: #2A4A80;
-      --secondary: #4A90E2;
-      --accent: #357ABD;
-      --dark: #0A1A35;
-      --light: #F5F8FC;
+      --primary: #003399; /* RGB(0, 51, 153) */
+      --primary-light: #1A4DB3;
+      --secondary: #4D7FFF;
+      --accent: #3366CC;
+      --dark: #001133;
+      --light: #F5F8FF;
       --gray: #6C757D;
       --light-gray: #E9ECEF;
       --white: #FFFFFF;
@@ -38,6 +38,11 @@
       line-height: 1.6;
       overflow-x: hidden;
       position: relative;
+    }
+
+    /* Science Gothic for all headers */
+    h1, h2, h3, h4, h5, h6 {
+      font-family: 'Science Gothic', sans-serif;
     }
 
     /* Full-page node canvas */
@@ -65,7 +70,7 @@
     header {
       padding: 80px 20px 60px;
       text-align: center;
-      background: linear-gradient(135deg, rgba(30, 55, 101, 0.85), rgba(42, 74, 128, 0.85));
+      background: linear-gradient(135deg, rgba(0, 51, 153, 0.85), rgba(26, 77, 179, 0.85));
       color: white;
       position: relative;
       overflow: hidden;
@@ -82,7 +87,7 @@
     header h1 {
       margin: 0;
       font-size: 3rem;
-      font-weight: 800;
+      font-weight: 700;
       letter-spacing: -0.5px;
       margin-bottom: 10px;
     }
@@ -482,7 +487,7 @@
       <div class="card fade-in delay-1 profile-section">
         <div class="profile-image">
           <div class="profile-placeholder">
-            <img src="Screenshot 2025-11-24 214800.png" alt="Yanting Liu" class="profile-image">
+            <i class="fas fa-user"></i>
           </div>
         </div>
       </div>
@@ -628,7 +633,7 @@
           this.vx = (Math.random() - 0.5) * 1; 
           this.vy = (Math.random() - 0.5) * 1; 
           this.radius = Math.random() * 3 + 2;
-          this.color = `rgba(30, 55, 101, ${Math.random() * 0.4 + 0.1})`;
+          this.color = `rgba(0, 51, 153, ${Math.random() * 0.4 + 0.1})`;
         }
         
         update() {
@@ -678,7 +683,7 @@
               nodeCtx.beginPath();
               nodeCtx.moveTo(nodes[i].x, nodes[i].y);
               nodeCtx.lineTo(nodes[j].x, nodes[j].y);
-              nodeCtx.strokeStyle = `rgba(30, 55, 101, ${opacity * 0.15})`;
+              nodeCtx.strokeStyle = `rgba(0, 51, 153, ${opacity * 0.15})`;
               nodeCtx.lineWidth = 0.8;
               nodeCtx.stroke();
             }
@@ -731,7 +736,7 @@
           this.opacity = 0.8;
           this.fadeSpeed = Math.random() * 0.02 + 0.01;
           this.smoothness = 0.1 + Math.random() * 0.1; // Smooth movement
-          this.color = `rgba(74, 144, 226, ${this.opacity})`;
+          this.color = `rgba(77, 127, 255, ${this.opacity})`; /* Using secondary color */
         }
         
         update(targetX, targetY) {
@@ -745,7 +750,7 @@
           // Fade out
           this.opacity -= this.fadeSpeed;
           if (this.opacity < 0) this.opacity = 0;
-          this.color = `rgba(74, 144, 226, ${this.opacity})`;
+          this.color = `rgba(77, 127, 255, ${this.opacity})`;
         }
         
         draw() {
@@ -801,7 +806,7 @@
       
       // Mouse trail animation loop
       function animateTrail() {
-        // Clear the canvas completely - NO FADE EFFECT
+        // Clear the canvas completely
         mouseCtx.clearRect(0, 0, mouseCanvas.width, mouseCanvas.height);
         
         // Update and draw trail dots, removing dead ones
