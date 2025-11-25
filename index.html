@@ -37,25 +37,39 @@
       color: var(--dark);
       line-height: 1.6;
       overflow-x: hidden;
+      position: relative;
+    }
+
+    /* Full-page node canvas */
+    #nodeCanvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1; /* Behind all content */
+      pointer-events: none; /* Allow clicking through canvas */
+    }
+
+    /* Mouse trail canvas - highest priority */
+    #mouseCanvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 9999; /* Highest priority - on top of everything */
+      pointer-events: none; /* Allow clicking through canvas */
     }
 
     header {
       padding: 80px 20px 60px;
       text-align: center;
-      background: linear-gradient(135deg, var(--primary), var(--primary-light));
+      background: linear-gradient(135deg, rgba(30, 55, 101, 0.85), rgba(42, 74, 128, 0.85));
       color: white;
       position: relative;
       overflow: hidden;
       height: 400px;
-    }
-
-    #nodeCanvas {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: 1;
     }
 
     .header-content {
@@ -136,6 +150,12 @@
       max-width: 1100px;
       margin: auto;
       padding: 40px 20px;
+      position: relative;
+      z-index: 1; /* Ensure content is above background canvas */
+      background: rgba(255, 255, 255, 0.85);
+      border-radius: 12px;
+      margin-bottom: 20px;
+      box-shadow: var(--card-shadow);
     }
 
     h2 {
@@ -357,6 +377,8 @@
       font-size: 0.9rem;
       background: var(--white);
       border-top: 1px solid var(--light-gray);
+      position: relative;
+      z-index: 1;
     }
 
     /* Animations */
@@ -427,8 +449,13 @@
 </head>
 <body>
 
+  <!-- Full-page node canvas (background) -->
+  <canvas id="nodeCanvas"></canvas>
+  
+  <!-- Full-page mouse trail canvas (highest priority) -->
+  <canvas id="mouseCanvas"></canvas>
+
   <header>
-    <canvas id="nodeCanvas"></canvas>
     <div class="header-content">
       <h1>Yanting Liu</h1>
       <p>Computer Engineering Student • Creator • Problem Solver</p>
@@ -579,21 +606,21 @@
   </footer>
 
   <script>
-    // Node Network Animation
+    // Full-page Node Network Animation (Background)
     document.addEventListener('DOMContentLoaded', function() {
-      const canvas = document.getElementById('nodeCanvas');
-      const ctx = canvas.getContext('2d');
+      const nodeCanvas = document.getElementById('nodeCanvas');
+      const nodeCtx = nodeCanvas.getContext('2d');
       
-      // Set canvas size
+      // Set canvas size to full viewport
       function setCanvasSize() {
-        canvas.width = canvas.offsetWidth;
-        canvas.height = canvas.offsetHeight;
+        nodeCanvas.width = window.innerWidth;
+        nodeCanvas.height = window.innerHeight;
       }
       
       setCanvasSize();
       window.addEventListener('resize', setCanvasSize);
       
-      // Node class
+      // Node class for background nodes
       class Node {
         constructor(x, y) {
           this.x = x;
@@ -601,7 +628,7 @@
           this.vx = (Math.random() - 0.5) * 1; 
           this.vy = (Math.random() - 0.5) * 1; 
           this.radius = Math.random() * 3 + 2;
-          this.color = `rgba(255, 255, 255, ${Math.random() * 0.4 + 0.1})`;
+          this.color = `rgba(30, 55, 101, ${Math.random() * 0.4 + 0.1})`;
         }
         
         update() {
@@ -609,36 +636,36 @@
           this.y += this.vy;
           
           // Bounce off walls
-          if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
-          if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
+          if (this.x < 0 || this.x > nodeCanvas.width) this.vx *= -1;
+          if (this.y < 0 || this.y > nodeCanvas.height) this.vy *= -1;
           
           // Keep within bounds
-          this.x = Math.max(0, Math.min(canvas.width, this.x));
-          this.y = Math.max(0, Math.min(canvas.height, this.y));
+          this.x = Math.max(0, Math.min(nodeCanvas.width, this.x));
+          this.y = Math.max(0, Math.min(nodeCanvas.height, this.y));
         }
         
         draw() {
-          ctx.beginPath();
-          ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-          ctx.fillStyle = this.color;
-          ctx.fill();
+          nodeCtx.beginPath();
+          nodeCtx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+          nodeCtx.fillStyle = this.color;
+          nodeCtx.fill();
         }
       }
       
-      // Create initial nodes
+      // Create background nodes
       let nodes = [];
-      const nodeCount = 50; // Slightly reduced for cleaner look
+      const nodeCount = 80;
       
       for (let i = 0; i < nodeCount; i++) {
         nodes.push(new Node(
-          Math.random() * canvas.width,
-          Math.random() * canvas.height
+          Math.random() * nodeCanvas.width,
+          Math.random() * nodeCanvas.height
         ));
       }
       
       // Draw connections between nodes
       function drawConnections() {
-        const maxDistance = 120; // Reduced from 150
+        const maxDistance = 120;
         
         for (let i = 0; i < nodes.length; i++) {
           for (let j = i + 1; j < nodes.length; j++) {
@@ -648,22 +675,22 @@
             
             if (distance < maxDistance) {
               const opacity = 1 - (distance / maxDistance);
-              ctx.beginPath();
-              ctx.moveTo(nodes[i].x, nodes[i].y);
-              ctx.lineTo(nodes[j].x, nodes[j].y);
-              ctx.strokeStyle = `rgba(255, 255, 255, ${opacity * 0.15})`; // Reduced opacity
-              ctx.lineWidth = 0.8; // Thinner lines
-              ctx.stroke();
+              nodeCtx.beginPath();
+              nodeCtx.moveTo(nodes[i].x, nodes[i].y);
+              nodeCtx.lineTo(nodes[j].x, nodes[j].y);
+              nodeCtx.strokeStyle = `rgba(30, 55, 101, ${opacity * 0.15})`;
+              nodeCtx.lineWidth = 0.8;
+              nodeCtx.stroke();
             }
           }
         }
       }
       
-      // Animation loop
-      function animate() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
+      // Background animation loop
+      function animateNodes() {
+        nodeCtx.clearRect(0, 0, nodeCanvas.width, nodeCanvas.height);
         
-        // Update and draw nodes
+        // Update and draw background nodes
         nodes.forEach(node => {
           node.update();
           node.draw();
@@ -672,64 +699,177 @@
         // Draw connections
         drawConnections();
         
-        requestAnimationFrame(animate);
+        requestAnimationFrame(animateNodes);
       }
       
-      // Start animation
-      animate();
+      // Start background animation
+      animateNodes();
+    });
+
+    // Smooth Mouse Trail Animation (Highest Priority)
+    (function() {
+      const mouseCanvas = document.getElementById('mouseCanvas');
+      const mouseCtx = mouseCanvas.getContext('2d');
       
-      // Add new node on click
-      canvas.addEventListener('click', function(e) {
-        const rect = canvas.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
+      // Set canvas size to full viewport
+      function setMouseCanvasSize() {
+        mouseCanvas.width = window.innerWidth;
+        mouseCanvas.height = window.innerHeight;
+      }
+      
+      setMouseCanvasSize();
+      window.addEventListener('resize', setMouseCanvasSize);
+      
+      // Smooth mouse trail dot class
+      class SmoothTrailDot {
+        constructor(x, y) {
+          this.x = x;
+          this.y = y;
+          this.targetX = x;
+          this.targetY = y;
+          this.radius = Math.random() * 3 + 2;
+          this.opacity = 0.8;
+          this.fadeSpeed = Math.random() * 0.02 + 0.01;
+          this.smoothness = 0.1 + Math.random() * 0.1; // Smooth movement
+          this.color = `rgba(74, 144, 226, ${this.opacity})`;
+        }
         
-        nodes.push(new Node(x, y));
+        update(targetX, targetY) {
+          // Smooth interpolation toward target
+          this.targetX = targetX;
+          this.targetY = targetY;
+          
+          this.x += (this.targetX - this.x) * this.smoothness;
+          this.y += (this.targetY - this.y) * this.smoothness;
+          
+          // Fade out
+          this.opacity -= this.fadeSpeed;
+          if (this.opacity < 0) this.opacity = 0;
+          this.color = `rgba(74, 144, 226, ${this.opacity})`;
+        }
         
-        // Limit total nodes to prevent performance issues
-        if (nodes.length > 50) {
-          nodes.shift(); // Remove the oldest node
+        draw() {
+          mouseCtx.beginPath();
+          mouseCtx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+          mouseCtx.fillStyle = this.color;
+          mouseCtx.fill();
+        }
+        
+        isDead() {
+          return this.opacity <= 0;
+        }
+      }
+      
+      // Mouse trail dots array
+      let trailDots = [];
+      const maxTrailDots = 15;
+      
+      // Mouse position tracking with history for smoothness
+      let mouseHistory = [];
+      const maxHistory = 5;
+      let lastMouseX = 0;
+      let lastMouseY = 0;
+      
+      document.addEventListener('mousemove', (e) => {
+        // Store mouse position in history
+        mouseHistory.push({ x: e.clientX, y: e.clientY });
+        if (mouseHistory.length > maxHistory) {
+          mouseHistory.shift();
+        }
+        
+        lastMouseX = e.clientX;
+        lastMouseY = e.clientY;
+        
+        // Create new trail dot with smooth positioning
+        const historyIndex = Math.floor(mouseHistory.length / 2);
+        const targetPos = mouseHistory[historyIndex] || { x: e.clientX, y: e.clientY };
+        
+        // Add slight randomness for organic feel
+        const offsetX = (Math.random() - 0.5) * 8;
+        const offsetY = (Math.random() - 0.5) * 8;
+        
+        trailDots.push(new SmoothTrailDot(
+          targetPos.x + offsetX, 
+          targetPos.y + offsetY
+        ));
+        
+        // Limit the number of trail dots
+        if (trailDots.length > maxTrailDots) {
+          trailDots.shift(); // Remove the oldest dot
         }
       });
       
-      // Smooth scrolling for navigation links
-      const navLinks = document.querySelectorAll('.nav-link');
-      
-      navLinks.forEach(link => {
-        link.addEventListener('click', function(e) {
-          e.preventDefault();
-          
-          const targetId = this.getAttribute('href');
-          const targetSection = document.querySelector(targetId);
-          
-          if (targetSection) {
-            // Calculate the position to scroll to
-            const offsetTop = targetSection.offsetTop - 70; // Adjust for fixed header
-          
-            // Smooth scroll to the target section
-            window.scrollTo({
-              top: offsetTop,
-              behavior: 'smooth'
-            });
+      // Mouse trail animation loop
+      function animateTrail() {
+        // Clear the canvas completely - NO FADE EFFECT
+        mouseCtx.clearRect(0, 0, mouseCanvas.width, mouseCanvas.height);
+        
+        // Update and draw trail dots, removing dead ones
+        for (let i = trailDots.length - 1; i >= 0; i--) {
+          // Each dot follows the one before it for smoother trail
+          let targetX, targetY;
+          if (i === trailDots.length - 1) {
+            // Last dot follows current mouse
+            targetX = lastMouseX;
+            targetY = lastMouseY;
+          } else {
+            // Other dots follow the next dot in sequence
+            targetX = trailDots[i + 1].x;
+            targetY = trailDots[i + 1].y;
           }
-        });
-      });
-      
-      // Intersection observer for fade-in animations
-      const fadeElements = document.querySelectorAll('.fade-in');
-      
-      const fadeObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.style.animationPlayState = 'running';
-            fadeObserver.unobserve(entry.target);
+          
+          trailDots[i].update(targetX, targetY);
+          trailDots[i].draw();
+          
+          if (trailDots[i].isDead()) {
+            trailDots.splice(i, 1);
           }
-        });
-      }, { threshold: 0.1 });
+        }
+        
+        requestAnimationFrame(animateTrail);
+      }
       
-      fadeElements.forEach(el => {
-        fadeObserver.observe(el);
+      // Start mouse trail animation
+      animateTrail();
+    })();
+
+    // Smooth scrolling for navigation links
+    const navLinks = document.querySelectorAll('.nav-link');
+    
+    navLinks.forEach(link => {
+      link.addEventListener('click', function(e) {
+        e.preventDefault();
+        
+        const targetId = this.getAttribute('href');
+        const targetSection = document.querySelector(targetId);
+        
+        if (targetSection) {
+          // Calculate the position to scroll to
+          const offsetTop = targetSection.offsetTop - 70; // Adjust for fixed header
+        
+          // Smooth scroll to the target section
+          window.scrollTo({
+            top: offsetTop,
+            behavior: 'smooth'
+          });
+        }
       });
+    });
+    
+    // Intersection observer for fade-in animations
+    const fadeElements = document.querySelectorAll('.fade-in');
+    
+    const fadeObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.animationPlayState = 'running';
+          fadeObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+    
+    fadeElements.forEach(el => {
+      fadeObserver.observe(el);
     });
   </script>
 </body>
