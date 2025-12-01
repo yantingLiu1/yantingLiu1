@@ -1,922 +1,240 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Yanting Liu — Portfolio</title>
-  <!-- Updated Google Fonts to include Saira -->
-  <link href="https://fonts.googleapis.com/css2?family=Federo:wght@400;500;600;700&family=Sofia+Sans+Extra+Condensed:wght@400;500;600;700&family=Julius+Sans+One&family=Inter:wght@300;400;500;600;700&family=Saira:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <style>
-    :root {
-      --primary: #1E3765; /* New primary color */
-      --primary-light: #2A4A7A; /* Lighter shade of primary */
-      --secondary: #4A6BA5; /* Complementary secondary color */
-      --accent: #5A7BB0; /* Accent color */
-      --dark: #0A1A36; /* Darker shade for text */
-      --light: #F0F4FA; /* Light background */
-      --gray: #6C757D;
-      --light-gray: #E9ECEF;
-      --white: #FFFFFF;
-      --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-      --transition: all 0.3s ease;
-    }
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Yanting Liu — Home</title>
+<style>
+  /* Body & layout */
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    margin:0;
+    font-family:Arial, sans-serif;
+    background:#ffffff;
+    color:#213D6D;
+    text-align:center;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    transition: background 0.3s ease;
+  }
+  main { flex: 1; }
 
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+  /* Navigation */
+  nav {
+    width:100%;
+    padding:20px;
+    display:flex;
+    justify-content:center;
+    gap:40px; 
+    position:fixed;
+    top:0;
+    background:#fff;
+    border-bottom:1px solid #ddd;
+    z-index:1000;
+    transition: background 0.3s ease;
+  }
+  nav a {
+    text-decoration:none;
+    color:#213D6D;
+    font-weight:bold;
+    transition: color 0.3s ease;
+  }
+  nav a:hover { color:#1a2f5b; }
 
-    html {
-      scroll-behavior: smooth;
-    }
+  /* Animations */
+  .fade-slide {
+    opacity:0;
+    transform:translateY(40px);
+    transition: all 0.8s cubic-bezier(0.65, 0, 0.35, 1);
+  }
+  .fade-slide.visible {
+    opacity:1;
+    transform:translateY(0);
+  }
 
-    body {
-      font-family: 'Inter', sans-serif;
-      background: var(--light);
-      color: var(--dark);
-      line-height: 1.6;
-      overflow-x: hidden;
-      position: relative;
-    }
+  /* Sections */
+  .section { padding:120px 20px; }
+  #projects { max-width:900px; margin:auto; padding-top:160px; }
+  #experience { max-width:900px; margin:auto; padding-top:160px; }
 
-    /* Font assignments */
-    header h1 {
-      font-family: 'Federo', sans-serif;
-    }
-    
-    nav a {
-      font-family: 'Sofia Sans Extra Condensed', sans-serif;
-    }
-    
-    h2 {
-      font-family: 'Julius Sans One', sans-serif;
-    }
-    
-    .card h3 {
-      font-family: 'Julius Sans One', sans-serif;
-    }
-    
-    .contact-info h3 {
-      font-family: 'Julius Sans One', sans-serif;
-    }
+  .project, .exp-item {
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:40px;
+    margin:80px 0;
+    border-radius:12px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .project:hover, .exp-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+  }
+  .project:nth-child(even), .exp-item:nth-child(even) { flex-direction:row-reverse; }
 
-    /* NEW: Apply Saira font to paragraphs */
-    p {
-      font-family: 'Saira', sans-serif;
-    }
+  .img-box {
+    width:40%;
+    height:220px;
+    background:#e6ecf7;
+    border-radius:12px;
+    transition: transform 0.3s ease;
+  }
+  .project:hover .img-box,
+  .exp-item:hover .img-box {
+    transform: scale(1.05);
+  }
 
-    /* Full-page node canvas */
-    #nodeCanvas {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: -1; /* Behind all content */
-      pointer-events: none; /* Allow clicking through canvas */
-    }
+  .text-box { width:50%; text-align:left; }
 
-    /* Mouse trail canvas - highest priority */
-    #mouseCanvas {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: 9999; /* Highest priority - on top of everything */
-      pointer-events: none; /* Allow clicking through canvas */
-    }
+  /* Hero section */
+  .hero {
+    height:80vh;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+  }
+  .projects-link { margin-top:40px; font-size:1.5rem; }
+  .projects-link a:hover { color:#1a2f5b; }
 
-    header {
-      padding: 80px 20px 60px;
-      text-align: center;
-      background: linear-gradient(135deg, rgba(30, 55, 101, 0.85), rgba(42, 74, 122, 0.85)); /* Updated gradient */
-      color: white;
-      position: relative;
-      overflow: hidden;
-      height: 400px;
-    }
-
-    .header-content {
-      max-width: 800px;
-      margin: 0 auto;
-      position: relative;
-      z-index: 2;
-    }
-
-    header h1 {
-      margin: 0;
-      font-size: 4rem;
-      font-weight: 700;
-      letter-spacing: -0.5px;
-      margin-bottom: 10px;
-    }
-
-    header p {
-      font-size: 1.2rem;
-      opacity: 0.9;
-      font-weight: 400;
-      margin-bottom: 15px;
-    }
-
-    /* Updated tagline style - removed background circle and changed font */
-    .tagline {
-      display: inline-block;
-      padding: 0; /* Removed padding */
-      background: transparent; /* Removed background */
-      border-radius: 0; /* Removed border radius */
-      font-size: 1rem; /* Adjusted font size */
-      backdrop-filter: none; /* Removed backdrop filter */
-      border: none; /* Removed border */
-      font-family: 'Inter', sans-serif; /* Same as header p */
-      font-weight: 300; /* Lighter weight for subtlety */
-      letter-spacing: 0.5px; /* Slightly increased letter spacing */
-    }
-
-    nav {
-      display: flex;
-      justify-content: center;
-      gap: 30px;
-      padding: 10px;
-      background: var(--white);
-      position: sticky;
-      top: 0;
-      border-bottom: 1px solid var(--light-gray);
-      z-index: 100;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-    }
-
-    nav a {
-      text-decoration: none;
-      color: var(--dark);
-      font-weight: 600;
-      transition: var(--transition);
-      position: relative;
-      padding: 5px 0;
-      font-size: 2rem; /* Slightly larger for condensed font */
-      letter-spacing: 0.5px;
-    }
-
-    nav a::after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 0;
-      height: 2px;
-      background: var(--secondary);
-      transition: var(--transition);
-    }
-
-    nav a:hover {
-      color: var(--secondary);
-    }
-
-    nav a:hover::after {
-      width: 100%;
-    }
-
-    section {
-      max-width: 1100px;
-      margin: auto;
-      padding: 40px 20px;
-      position: relative;
-      z-index: 1; /* Ensure content is above background canvas */
-      background: rgba(255, 255, 255, 0.85);
-      border-radius: 12px;
-      margin-bottom: 20px;
-      box-shadow: var(--card-shadow);
-    }
-
-    h2 {
-      font-size: 2.2rem;
-      margin-bottom: 30px;
-      font-weight: 700;
-      color: var(--primary);
-      text-align: center;
-      position: relative;
-      letter-spacing: 1px;
-    }
-
-    h2::after {
-      content: '';
-      position: absolute;
-      bottom: -12px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 50px;
-      height: 3px;
-      background: linear-gradient(to right, var(--primary), var(--secondary));
-      border-radius: 2px;
-    }
-
-    .grid-2 {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 20px;
-    }
-
-    .grid-3 {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 20px;
-    }
-
-    .card {
-      background: var(--white);
-      padding: 25px;
-      border-radius: 12px;
-      box-shadow: var(--card-shadow);
-      transition: var(--transition);
-      border: 1px solid rgba(0, 0, 0, 0.03);
-      height: 100%;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 12px 25px rgba(0, 0, 0, 0.12);
-    }
-
-    .card h3 {
-      font-size: 1.3rem;
-      margin-bottom: 12px;
-      color: var(--primary);
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      letter-spacing: 0.5px;
-    }
-
-    .card-icon {
-      width: 35px;
-      height: 35px;
-      background: var(--light);
-      border-radius: 8px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--secondary);
-      font-size: 1rem;
-    }
-
-    .card p {
-      margin-bottom: 12px;
-      color: var(--gray);
-      font-size: 0.95rem;
-    }
-
-    .skill-list {
-      list-style: none;
-      padding: 0;
-    }
-
-    .skill-list li {
-      margin-bottom: 10px;
-      padding-left: 20px;
-      position: relative;
-      font-size: 0.95rem;
-      font-family: 'Saira', sans-serif; /* Apply Saira to list items too */
-    }
-
-    .skill-list li::before {
-      content: '▹';
-      position: absolute;
-      left: 0;
-      color: var(--secondary);
-      font-weight: bold;
-    }
-
-    .project-card {
-      position: relative;
-      overflow: hidden;
-    }
-
-    .project-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-      margin-top: 12px;
-    }
-
-    .tag {
-      background: var(--light);
-      color: var(--secondary);
-      padding: 4px 10px;
-      border-radius: 50px;
-      font-size: 0.8rem;
-      font-weight: 500;
-      font-family: 'Saira', sans-serif; /* Apply Saira to tags too */
-    }
-
-    .interest-card {
-      text-align: center;
-      padding: 25px 20px;
-    }
-
-    .interest-card h3 {
-      display: block;
-      text-align: center;
-      justify-content: center;
-    }
-
-    .interest-icon {
-      font-size: 2.2rem;
-      margin-bottom: 15px;
-      color: var(--secondary);
-    }
-
-    .contact-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 20px;
-      justify-items: center;
-    }
-
-    .contact-card {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 15px;
-      padding: 20px;
-      width: 100%;
-      max-width: 350px;
-      text-align: center;
-    }
-
-    .contact-icon {
-      width: 50px;
-      height: 50px;
-      background: var(--light);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--secondary);
-      font-size: 1.3rem;
-      flex-shrink: 0;
-    }
-
-    .contact-info h3 {
-      margin-bottom: 5px;
-      font-size: 1.1rem;
-      text-align: center;
-      letter-spacing: 0.5px;
-    }
-
-    .contact-info p {
-      color: var(--gray);
-      font-size: 0.9rem;
-      text-align: center;
-    }
-
-    /* Profile Image Section */
-    .profile-section {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 40px 20px;
-    }
-
-    .profile-image {
-      width: 250px;
-      height: 250px;
-      border-radius: 20px;
-      object-fit: cover;
-      box-shadow: var(--card-shadow);
-      border: 5px solid var(--white);
-      background: linear-gradient(135deg, var(--primary), var(--secondary));
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: white;
-      font-size: 4rem;
-    }
-
-    .profile-placeholder {
-      width: 100%;
-      height: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: linear-gradient(135deg, var(--primary), var(--secondary));
-      border-radius: 15px;
-    }
-
-    footer {
-      text-align: center;
-      padding: 30px 20px;
-      color: var(--gray);
-      font-size: 0.9rem;
-      background: var(--white);
-      border-top: 1px solid var(--light-gray);
-      position: relative;
-      z-index: 1;
-      font-family: 'Saira', sans-serif; /* Apply Saira to footer */
-    }
-
-    /* Animations */
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(15px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    .fade-in {
-      animation: fadeIn 0.6s ease forwards;
-    }
-
-    .delay-1 { animation-delay: 0.1s; opacity: 0; }
-    .delay-2 { animation-delay: 0.2s; opacity: 0; }
-    .delay-3 { animation-delay: 0.3s; opacity: 0; }
-
-    /* Responsive adjustments */
-    @media (max-width: 768px) {
-      header {
-        padding: 60px 20px 40px;
-        height: 350px;
-      }
-      
-      header h1 {
-        font-size: 4rem;
-      }
-      
-      header p {
-        font-size: 1rem;
-      }
-      
-      .tagline {
-        font-size: 0.9rem; /* Adjusted for mobile */
-      }
-      
-      nav {
-        gap: 15px;
-        flex-wrap: wrap;
-      }
-      
-      nav a {
-        font-size: 2rem;
-      }
-      
-      section {
-        padding: 30px 20px;
-      }
-      
-      h2 {
-        font-size: 1.8rem;
-        margin-bottom: 25px;
-      }
-      
-      .card {
-        padding: 20px;
-      }
-      
-      .grid-2, .grid-3 {
-        grid-template-columns: 1fr;
-      }
-      
-      .contact-grid {
-        grid-template-columns: 1fr;
-      }
-      
-      .contact-card {
-        max-width: 100%;
-      }
-      
-      .profile-image {
-        width: 200px;
-        height: 200px;
-      }
-    }
-  </style>
+  footer {
+    width:100%;
+    background:#213D6D;
+    color:white;
+    padding:60px 20px;
+    text-align:center;
+  }
+</style>
 </head>
+
 <body>
 
-  <!-- Full-page node canvas (background) -->
-  <canvas id="nodeCanvas"></canvas>
-  
-  <!-- Full-page mouse trail canvas (highest priority) -->
-  <canvas id="mouseCanvas"></canvas>
+<nav>
+  <a href="#home" class="nav-link">Home</a>
+  <a href="#experience" class="nav-link">Experience</a>
+  <a href="#projects" class="nav-link">Projects</a>
+  <a href="about.html">About</a>
+</nav>
 
-  <header>
-    <div class="header-content">
-      <h1>Yanting Liu</h1>
-      <p>Computer Engineering Student • Creator • Problem Solver</p>
-      <div class="tagline">Building things with code, creativity, and curiosity</div>
-    </div>
-  </header>
+<main>
 
-  <nav>
-    <a href="#about" class="nav-link">About Me</a>
-    <a href="#skills" class="nav-link">What I Do</a>
-    <a href="#projects" class="nav-link">Projects</a>
-    <a href="#interests" class="nav-link">Interests</a>
-    <a href="#contact" class="nav-link">Contact</a>
-  </nav>
-
-  <section id="about">
-    <h2>About Me</h2>
-    <div class="grid-2">
-      <div class="card fade-in">
-        <h3 style="justify-content: center;"><div class="card-icon"><i class="fas fa-user"></i></div> Who I Am</h3>
-        <p>Hi! I'm <strong>Yanting</strong>, a Computer Engineering student at the University of Waterloo who loves building things; software, videos, stories, and sometimes overly complicated debugging setups.</p>
-        <p>My journey in tech started with curiosity about how things work, and has evolved into a passion for creating solutions that blend technical expertise with creative thinking.</p>
-      </div>
-      <div class="card fade-in delay-1 profile-section">
-        <div class="profile-image">
-          <div class="profile-placeholder">
-            <i class="fas fa-user"></i>
-          </div>
-        </div>
-      </div>
+  <!-- HERO -->
+  <section id="home" class="hero fade-slide">
+    <h1 style="font-size:4rem;">Yanting Liu</h1>
+    <p style="max-width:700px; font-size:1.3rem;">
+      Honors Computer Engineering student with experience in software development,
+      FPGA design, and embedded systems.
+    </p>
+    <div class="projects-link">
+      <a href="#projects">View My Work ↓</a>
     </div>
   </section>
 
-  <section id="skills">
-    <h2>What I Do</h2>
-    <div class="grid-3">
-      <div class="card fade-in">
-        <h3 style="justify-content: center;"><div class="card-icon"><i class="fas fa-code"></i></div> Development</h3>
-        <ul class="skill-list">
-          <li>Programming (Java, Python, C++, HTML/CSS)</li>
-          <li>AI automation and workflow optimization</li>
-          <li>Digital & microcontroller systems (STM32)</li>
-        </ul>
+  <!-- WORK EXPERIENCE (NEW SECTION) -->
+  <section id="experience" class="section fade-slide">
+    <h1>Experience</h1>
+
+    <div class="exp-item fade-slide">
+      <div class="text-box">
+        <h2>AI Video Automation Engineer — AniNews</h2>
+        <p>
+          Built automation pipelines using Python, Whisper, and Stable-ts to create synchronized
+          subtitles for YouTube videos. Developed a full script workflow, optimized AI tools,
+          and contributed to content editing for YouTube Shorts.
+        </p>
       </div>
-      <div class="card fade-in delay-1">
-        <h3 style="justify-content: center;"><div class="card-icon"><i class="fas fa-video"></i></div> Media & Content</h3>
-        <ul class="skill-list">
-          <li>Video editing and subtitling automation</li>
-          <li>Technical documentation & research</li>
-          <li>Creative storytelling and content creation</li>
-        </ul>
-      </div>
-      <div class="card fade-in delay-2">
-        <h3 style="justify-content: center;"><div class="card-icon"><i class="fas fa-chalkboard-teacher"></i></div> Education</h3>
-        <ul class="skill-list">
-          <li>Math tutoring and academic support</li>
-          <li>Knowledge sharing and mentorship</li>
-          <li>Workshop development and delivery</li>
-        </ul>
-      </div>
+      <div class="img-box"></div>
     </div>
-  </section>
 
-  <section id="projects">
-    <h2>Featured Projects</h2>
-    <div class="grid-2">
-      <div class="card project-card fade-in">
-        <h3 style="justify-content: center;"><div class="card-icon"><i class="fas fa-closed-captioning"></i></div> AI Subtitle Automation System</h3>
-        <p>Built a Python automation pipeline integrating Whisper & Stable-ts for YouTube subtitles, reducing manual subtitle creation time by 80% while improving accuracy.</p>
-        <p>The system handles multiple video formats and automatically generates properly timed captions with speaker identification.</p>
-        <div class="project-tags">
-          <span class="tag">Python</span>
-          <span class="tag">AI</span>
-          <span class="tag">Automation</span>
-          <span class="tag">Whisper</span>
-        </div>
+    <div class="exp-item fade-slide">
+      <div class="text-box">
+        <h2>Business Analyst & Web Developer — Mi Bowl Group Inc</h2>
+        <p>
+          Led Shopify platform development using HTML, CSS, JavaScript, and Liquid. Integrated
+          APIs, automated product data processes, optimized workflows, and analyzed business data
+          to guide strategy.
+        </p>
       </div>
-      <div class="card project-card fade-in delay-1">
-        <h3 style="justify-content: center;"><div class="card-icon"><i class="fas fa-book"></i></div> Java Book Management System</h3>
-        <p>Designed and implemented a GUI-based Java application for managing book records with search, filter, and CRUD operations.</p>
-        <p>Features include user authentication, data persistence, and an intuitive interface that makes library management efficient for both small and large collections.</p>
-        <div class="project-tags">
-          <span class="tag">Java</span>
-          <span class="tag">GUI</span>
-          <span class="tag">Database</span>
-          <span class="tag">Swing</span>
-        </div>
-      </div>
+      <div class="img-box"></div>
     </div>
-  </section>
 
-  <section id="interests">
-    <h2>Interests</h2>
-    <div class="grid-3">
-      <div class="card interest-card fade-in">
-        <div class="interest-icon"><i class="fas fa-robot"></i></div>
-        <h3>Robotics & Automation</h3>
-        <p>Exploring robotics systems and automation technologies. Currently learning about robotic control systems, sensor integration, and developing autonomous solutions.</p>
+
+  <!-- PROJECTS -->
+  <section id="projects" class="section fade-slide">
+    <h1>Projects</h1>
+
+    <div class="project fade-slide">
+      <div class="text-box">
+        <h2>FPGA-Based HVAC Controller</h2>
+        <p>
+          Designed a full HVAC controller in VHDL using a comparator, up/down counter,
+          shift register, and an FSM for modes such as vacation and safety lockout.
+        </p>
       </div>
-      <div class="card interest-card fade-in delay-1">
-        <div class="interest-icon"><i class="fas fa-microchip"></i></div>
-        <h3>Embedded Systems</h3>
-        <p>Working with microcontrollers and embedded systems, particularly STM32 platforms. Interested in IoT applications and low-level programming.</p>
-      </div>
-      <div class="card interest-card fade-in delay-2">
-        <div class="interest-icon"><i class="fas fa-brain"></i></div>
-        <h3>AI & Machine Learning</h3>
-        <p>Developing AI-powered solutions and exploring machine learning applications. Currently focused on natural language processing and computer vision.</p>
-      </div>
+      <div class="img-box"></div>
     </div>
-  </section>
 
-  <section id="contact">
-    <h2>Contact</h2>
-    <div class="contact-grid">
-      <div class="card contact-card fade-in">
-        <div class="contact-icon">
-          <i class="fas fa-envelope"></i>
-        </div>
-        <div class="contact-info">
-          <h3>Email</h3>
-          <p>y464liu@uwaterloo.ca</p>
-        </div>
+    <div class="project fade-slide">
+      <div class="text-box">
+        <h2>Traffic Light Controller (VHDL FSM)</h2>
+        <p>
+          Implemented a synchronous state machine with pedestrian handling, holding registers,
+          and 7-segment display mappings tested on a 50 MHz FPGA board.
+        </p>
       </div>
-      <div class="card contact-card fade-in delay-1">
-        <div class="contact-icon">
-          <i class="fab fa-linkedin"></i>
-        </div>
-        <div class="contact-info">
-          <h3>LinkedIn</h3>
-          <p>linkedin.com/in/yantingliu1</p>
-        </div>
-      </div>
-      <div class="card contact-card fade-in delay-2">
-        <div class="contact-icon">
-          <i class="fas fa-map-marker-alt"></i>
-        </div>
-        <div class="contact-info">
-          <h3>Location</h3>
-          <p>Waterloo, ON</p>
-        </div>
-      </div>
+      <div class="img-box"></div>
     </div>
+
+    <div class="project fade-slide">
+      <div class="text-box">
+        <h2>STM32 Humidity Sensor System</h2>
+        <p>
+          Built a humidity monitoring system using an STM32 Nucleo board, embedded C sensor
+          drivers, and full hardware–software integration in a 3-person team.
+        </p>
+      </div>
+      <div class="img-box"></div>
+    </div>
+
   </section>
+</main>
 
-  <footer>
-    © 2025 Yanting Liu
-  </footer>
+<footer>
+  <h2>Let's Get to Know Each Other</h2>
+  <p>
+    Connect with me on <a href="#">LinkedIn</a> or email 
+    <a href="mailto:y464liu@uwaterloo.ca">y464liu@uwaterloo.ca</a>
+  </p>
+</footer>
 
-  <script>
-    // Full-page Node Network Animation (Background)
-    document.addEventListener('DOMContentLoaded', function() {
-      const nodeCanvas = document.getElementById('nodeCanvas');
-      const nodeCtx = nodeCanvas.getContext('2d');
-      
-      // Set canvas size to full viewport
-      function setCanvasSize() {
-        nodeCanvas.width = window.innerWidth;
-        nodeCanvas.height = window.innerHeight;
-      }
-      
-      setCanvasSize();
-      window.addEventListener('resize', setCanvasSize);
-      
-      // Node class for background nodes
-      class Node {
-        constructor(x, y) {
-          this.x = x;
-          this.y = y;
-          this.vx = (Math.random() - 0.5) * 1; 
-          this.vy = (Math.random() - 0.5) * 1; 
-          this.radius = Math.random() * 3 + 2;
-          this.color = `rgba(30, 55, 101, ${Math.random() * 0.4 + 0.1})`; // Updated to new primary color
-        }
-        
-        update() {
-          this.x += this.vx;
-          this.y += this.vy;
-          
-          // Bounce off walls
-          if (this.x < 0 || this.x > nodeCanvas.width) this.vx *= -1;
-          if (this.y < 0 || this.y > nodeCanvas.height) this.vy *= -1;
-          
-          // Keep within bounds
-          this.x = Math.max(0, Math.min(nodeCanvas.width, this.x));
-          this.y = Math.max(0, Math.min(nodeCanvas.height, this.y));
-        }
-        
-        draw() {
-          nodeCtx.beginPath();
-          nodeCtx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-          nodeCtx.fillStyle = this.color;
-          nodeCtx.fill();
-        }
-      }
-      
-      // Create background nodes
-      let nodes = [];
-      const nodeCount = 80;
-      
-      for (let i = 0; i < nodeCount; i++) {
-        nodes.push(new Node(
-          Math.random() * nodeCanvas.width,
-          Math.random() * nodeCanvas.height
-        ));
-      }
-      
-      // Draw connections between nodes
-      function drawConnections() {
-        const maxDistance = 120;
-        
-        for (let i = 0; i < nodes.length; i++) {
-          for (let j = i + 1; j < nodes.length; j++) {
-            const dx = nodes[i].x - nodes[j].x;
-            const dy = nodes[i].y - nodes[j].y;
-            const distance = Math.sqrt(dx * dx + dy * dy);
-            
-            if (distance < maxDistance) {
-              const opacity = 1 - (distance / maxDistance);
-              nodeCtx.beginPath();
-              nodeCtx.moveTo(nodes[i].x, nodes[i].y);
-              nodeCtx.lineTo(nodes[j].x, nodes[j].y);
-              nodeCtx.strokeStyle = `rgba(30, 55, 101, ${opacity * 0.15})`; // Updated to new primary color
-              nodeCtx.lineWidth = 0.8;
-              nodeCtx.stroke();
-            }
-          }
-        }
-      }
-      
-      // Background animation loop
-      function animateNodes() {
-        nodeCtx.clearRect(0, 0, nodeCanvas.width, nodeCanvas.height);
-        
-        // Update and draw background nodes
-        nodes.forEach(node => {
-          node.update();
-          node.draw();
-        });
-        
-        // Draw connections
-        drawConnections();
-        
-        requestAnimationFrame(animateNodes);
-      }
-      
-      // Start background animation
-      animateNodes();
+<script>
+  // Intersection Observer
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) entry.target.classList.add('visible');
     });
+  }, { threshold: 0.2 });
+  document.querySelectorAll('.fade-slide').forEach(el => observer.observe(el));
 
-    // Smooth Mouse Trail Animation (Highest Priority)
-    (function() {
-      const mouseCanvas = document.getElementById('mouseCanvas');
-      const mouseCtx = mouseCanvas.getContext('2d');
-      
-      // Set canvas size to full viewport
-      function setMouseCanvasSize() {
-        mouseCanvas.width = window.innerWidth;
-        mouseCanvas.height = window.innerHeight;
-      }
-      
-      setMouseCanvasSize();
-      window.addEventListener('resize', setMouseCanvasSize);
-      
-      // Smooth mouse trail dot class
-      class SmoothTrailDot {
-        constructor(x, y) {
-          this.x = x;
-          this.y = y;
-          this.targetX = x;
-          this.targetY = y;
-          this.radius = Math.random() * 3 + 2;
-          this.opacity = 0.8;
-          this.fadeSpeed = Math.random() * 0.02 + 0.01;
-          this.smoothness = 0.1 + Math.random() * 0.1; // Smooth movement
-          this.color = `rgba(74, 107, 165, ${this.opacity})`; /* Updated to new secondary color */
-        }
-        
-        update(targetX, targetY) {
-          // Smooth interpolation toward target
-          this.targetX = targetX;
-          this.targetY = targetY;
-          
-          this.x += (this.targetX - this.x) * this.smoothness;
-          this.y += (this.targetY - this.y) * this.smoothness;
-          
-          // Fade out
-          this.opacity -= this.fadeSpeed;
-          if (this.opacity < 0) this.opacity = 0;
-          this.color = `rgba(74, 107, 165, ${this.opacity})`;
-        }
-        
-        draw() {
-          mouseCtx.beginPath();
-          mouseCtx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-          mouseCtx.fillStyle = this.color;
-          mouseCtx.fill();
-        }
-        
-        isDead() {
-          return this.opacity <= 0;
-        }
-      }
-      
-      // Mouse trail dots array
-      let trailDots = [];
-      const maxTrailDots = 15;
-      
-      // Mouse position tracking with history for smoothness
-      let mouseHistory = [];
-      const maxHistory = 5;
-      let lastMouseX = 0;
-      let lastMouseY = 0;
-      
-      document.addEventListener('mousemove', (e) => {
-        // Store mouse position in history
-        mouseHistory.push({ x: e.clientX, y: e.clientY });
-        if (mouseHistory.length > maxHistory) {
-          mouseHistory.shift();
-        }
-        
-        lastMouseX = e.clientX;
-        lastMouseY = e.clientY;
-        
-        // Create new trail dot with smooth positioning
-        const historyIndex = Math.floor(mouseHistory.length / 2);
-        const targetPos = mouseHistory[historyIndex] || { x: e.clientX, y: e.clientY };
-        
-        // Add slight randomness for organic feel
-        const offsetX = (Math.random() - 0.5) * 8;
-        const offsetY = (Math.random() - 0.5) * 8;
-        
-        trailDots.push(new SmoothTrailDot(
-          targetPos.x + offsetX, 
-          targetPos.y + offsetY
-        ));
-        
-        // Limit the number of trail dots
-        if (trailDots.length > maxTrailDots) {
-          trailDots.shift(); // Remove the oldest dot
-        }
-      });
-      
-      // Mouse trail animation loop
-      function animateTrail() {
-        // Clear the canvas completely
-        mouseCtx.clearRect(0, 0, mouseCanvas.width, mouseCanvas.height);
-        
-        // Update and draw trail dots, removing dead ones
-        for (let i = trailDots.length - 1; i >= 0; i--) {
-          // Each dot follows the one before it for smoother trail
-          let targetX, targetY;
-          if (i === trailDots.length - 1) {
-            // Last dot follows current mouse
-            targetX = lastMouseX;
-            targetY = lastMouseY;
-          } else {
-            // Other dots follow the next dot in sequence
-            targetX = trailDots[i + 1].x;
-            targetY = trailDots[i + 1].y;
-          }
-          
-          trailDots[i].update(targetX, targetY);
-          trailDots[i].draw();
-          
-          if (trailDots[i].isDead()) {
-            trailDots.splice(i, 1);
-          }
-        }
-        
-        requestAnimationFrame(animateTrail);
-      }
-      
-      // Start mouse trail animation
-      animateTrail();
-    })();
+  // Smooth scroll
+  function smoothScroll(event) {
+    event.preventDefault();
+    const targetId = this.getAttribute('href').replace('#','');
+    const target = document.getElementById(targetId);
+    const navHeight = document.querySelector('nav').offsetHeight;
 
-    // Smooth scrolling for navigation links
-    const navLinks = document.querySelectorAll('.nav-link');
-    
-    navLinks.forEach(link => {
-      link.addEventListener('click', function(e) {
-        e.preventDefault();
-        
-        const targetId = this.getAttribute('href');
-        const targetSection = document.querySelector(targetId);
-        
-        if (targetSection) {
-          // Calculate the position to scroll to
-          const offsetTop = targetSection.offsetTop - 70; // Adjust for fixed header
-        
-          // Smooth scroll to the target section
-          window.scrollTo({
-            top: offsetTop,
-            behavior: 'smooth'
-          });
-        }
-      });
+    window.scrollTo({
+      top: target.offsetTop - navHeight - 20,
+      behavior: 'smooth'
     });
-    
-    // Intersection observer for fade-in animations
-    const fadeElements = document.querySelectorAll('.fade-in');
-    
-    const fadeObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.style.animationPlayState = 'running';
-          fadeObserver.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.1 });
-    
-    fadeElements.forEach(el => {
-      fadeObserver.observe(el);
-    });
-  </script>
+  }
+  document.querySelectorAll('.nav-link, .projects-link a').forEach(link =>
+    link.addEventListener('click', smoothScroll)
+  );
+</script>
+
 </body>
 </html>
