@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About — Yanting Liu</title>
+<style>
+  body { 
+    margin:0; 
+    font-family:Arial, sans-serif; 
+    text-align:center; 
+    background:white; 
+    color:#213D6D; 
+    display:flex; 
+    flex-direction:column; 
+    min-height:100vh;
+  }
+
+  nav {
+    width:100%; 
+    padding:20px; 
+    display:flex; 
+    justify-content:center; 
+    gap:40px;
+    position:fixed; 
+    top:0; 
+    background:#fff; 
+    border-bottom:1px solid #ddd;
+    z-index:1000;
+  }
+  nav a { 
+    text-decoration:none; 
+    color:#213D6D; 
+    font-weight:bold;
+  }
+
+  .about-container {
+    padding:140px 20px 40px;
+    max-width:900px;
+    margin:auto;
+  }
+
+  .intro-section {
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:40px;
+    flex-wrap:wrap;
+    margin-bottom:60px;
+  }
+  .about-img {
+    width:280px;
+    height:280px;
+    background:#e6ecf7;
+    border-radius:16px;
+  }
+
+  .intro-text { max-width:400px; text-align:left; }
+
+  .experience { text-align:left; margin-top:60px; }
+  .exp-item { margin-bottom:40px; }
+</style>
+</head>
+
+<body>
+
+<nav>
+  <a href="index.html">Home</a>
+  <a href="index.html#experience">Experience</a>
+  <a href="index.html#projects">Projects</a>
+  <a href="about.html">About</a>
+</nav>
+
+<div class="about-container">
+
+  <div class="intro-section">
+    <div class="about-img"></div>
+
+    <div class="intro-text">
+      <h1>About Me</h1>
+      <p style="font-size:1.15rem; margin-top:10px; line-height:1.6;">
+        Honors Computer Engineering student specializing in software development,
+        FPGA design, digital systems, and embedded engineering. Passionate about
+        building efficient, practical, and scalable solutions.
+      </p>
+    </div>
+  </div>
+
+  <h2 style="margin-top:60px;">Experience</h2>
+  <div class="experience">
+
+    <div class="exp-item">
+      <h3>AI Video Automation Engineer — AniNews</h3>
+      <p>
+        Built automation pipelines using Whisper and Stable-ts, created streamlined subtitle
+        generation workflows, and supported content production.
+      </p>
+    </div>
+
+    <div class="exp-item">
+      <h3>Business Analyst — Mi Bowl Group Inc</h3>
+      <p>
+        Developed Shopify features, automated data workflows using Python, and delivered
+        insights to support business operations.
+      </p>
+    </div>
+
+    <div class="exp-item">
+      <h3>Leading to Reading — Toronto Public Library</h3>
+      <p>
+        Helped children enhance literacy skills through guided reading and personalized instruction.
+      </p>
+    </div>
+
+  </div>
+</div>
+
+</body>
+</html>
