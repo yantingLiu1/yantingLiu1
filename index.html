@@ -4,249 +4,917 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Yanting Liu — Home</title>
-
+<!-- Add Saira font from Google Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Saira:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
-  html { scroll-behavior: smooth; }
-  body {
-    margin:0;
-    font-family:Arial, sans-serif;
-    background:#ffffff;
-    color:#213D6D;
-    text-align:center;
-    display:flex;
-    flex-direction:column;
-    min-height:100vh;
-  }
-  main { flex:1; }
+/* -------------------- Base Styles -------------------- */
+:root {
+  --primary-color: #213D6D;
+  --secondary-color: #ffffff;
+  --accent-color: #4a6fa5;
+  --text-color: #213D6D;
+  --text-light: #ffffff;
+  --shadow: 0 4px 20px rgba(0,0,0,0.1);
+  --transition: all 0.3s ease;
+}
 
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html { 
+  scroll-behavior: smooth; 
+}
+
+body {
+  font-family: 'Saira', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background: var(--secondary-color);
+  color: var(--text-color);
+}
+
+main { 
+  flex: 1;
+  position: relative;
+}
+
+/* -------------------- Navigation -------------------- */
+nav {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  position: fixed;
+  top: 25px;
+  z-index: 1000;
+  padding: 0 20px;
+}
+
+nav a {
+  text-decoration: none;
+  color: var(--text-light);
+  font-weight: 600;
+  background: rgba(33, 61, 109, 0.9);
+  padding: 10px 24px;
+  border-radius: 30px;
+  backdrop-filter: blur(10px);
+  transition: var(--transition);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  font-size: 0.95rem;
+  letter-spacing: 0.5px;
+}
+
+nav a:hover {
+  background: rgba(33, 61, 109, 1);
+  transform: translateY(-3px);
+  box-shadow: var(--shadow);
+  color: var(--text-light);
+}
+
+/* -------------------- Hero Section -------------------- */
+.hero {
+  position: relative;
+  height: 100vh;
+  min-height: 600px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: var(--primary-color);
+  color: var(--text-light);
+  overflow: hidden;
+  padding: 0 20px;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(circle at 30% 30%, rgba(65, 105, 225, 0.3) 0%, transparent 50%);
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: 800px;
+}
+
+.hero h1 {
+  font-family: 'Saira', sans-serif;
+  font-weight: 700;
+  font-size: clamp(3rem, 8vw, 5rem);
+  margin-bottom: 1.5rem;
+  background: linear-gradient(135deg, #ffffff, #a8c6ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 4px 20px rgba(0,0,0,0.3);
+}
+
+.hero p {
+  font-family: 'Saira', sans-serif;
+  font-weight: 400;
+  font-size: clamp(1.1rem, 3vw, 1.5rem);
+  line-height: 1.6;
+  color: rgba(255,255,255,0.9);
+}
+
+.scroll-indicator {
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+  animation: float 2s ease-in-out infinite;
+}
+
+.scroll-arrow {
+  width: 24px;
+  height: 40px;
+  border: 2px solid rgba(255, 255, 255, 0.7);
+  border-radius: 12px;
+  position: relative;
+}
+
+.scroll-arrow::before {
+  content: '';
+  position: absolute;
+  top: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 4px;
+  height: 10px;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 2px;
+  animation: scroll 1.5s infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  50% { transform: translateX(-50%) translateY(10px); }
+}
+
+@keyframes scroll {
+  0% { opacity: 0; transform: translateX(-50%) translateY(0); }
+  50% { opacity: 1; }
+  100% { opacity: 0; transform: translateX(-50%) translateY(15px); }
+}
+
+/* -------------------- Content Sections -------------------- */
+.section {
+  padding: 120px 20px;
+  position: relative;
+  scroll-margin-top: 100px;
+}
+
+.section-header {
+  margin-bottom: 80px;
+}
+
+.section-header h1 {
+  font-family: 'Saira', sans-serif;
+  font-weight: 700;
+  font-size: 3rem;
+  color: var(--primary-color);
+  margin-bottom: 1rem;
+  position: relative;
+  display: inline-block;
+}
+
+.section-header h1::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 4px;
+  background: var(--accent-color);
+  border-radius: 2px;
+}
+
+.section-header p {
+  font-family: 'Saira', sans-serif;
+  font-weight: 400;
+  color: #666;
+  font-size: 1.2rem;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* -------------------- Experience & Projects -------------------- */
+.content-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.exp-item, .project {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  margin: 100px 0;
+  align-items: center;
+  position: relative;
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.exp-item.visible, .project.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.exp-item:nth-child(even), .project:nth-child(even) {
+  direction: rtl;
+}
+
+.exp-item:nth-child(even) > *, .project:nth-child(even) > * {
+  direction: ltr;
+}
+
+.content-text {
+  text-align: left;
+  padding: 30px;
+}
+
+.content-text h2 {
+  font-family: 'Saira', sans-serif;
+  font-weight: 600;
+  font-size: 2rem;
+  color: var(--primary-color);
+  margin-bottom: 1.5rem;
+  line-height: 1.3;
+}
+
+.content-text p {
+  font-family: 'Saira', sans-serif;
+  font-weight: 400;
+  font-size: 1.1rem;
+  line-height: 1.7;
+  color: #555;
+  margin-bottom: 1.5rem;
+}
+
+.content-text .tech-stack {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 2rem;
+}
+
+.tech-tag {
+  font-family: 'Saira', sans-serif;
+  font-weight: 500;
+  background: rgba(33, 61, 109, 0.1);
+  color: var(--primary-color);
+  padding: 6px 16px;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  transition: var(--transition);
+}
+
+.tech-tag:hover {
+  background: var(--primary-color);
+  color: white;
+  transform: translateY(-2px);
+}
+
+.media-container {
+  position: relative;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  transition: var(--transition);
+  height: 300px;
+  cursor: pointer;
+}
+
+.media-container:hover {
+  transform: translateY(-10px) scale(1.02);
+  box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+}
+
+.media-container img, .media-container video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.media-container:hover img, .media-container:hover video {
+  transform: scale(1.05);
+}
+
+.media-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.3), transparent);
+  display: flex;
+  align-items: flex-end;
+  padding: 20px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.media-container:hover .media-overlay {
+  opacity: 1;
+}
+
+.media-overlay span {
+  font-family: 'Saira', sans-serif;
+  font-weight: 600;
+  color: white;
+  font-size: 0.9rem;
+  background: rgba(0,0,0,0.7);
+  padding: 8px 16px;
+  border-radius: 20px;
+}
+
+/* -------------------- Footer -------------------- */
+footer {
+  background: var(--primary-color);
+  color: var(--text-light);
+  padding: 80px 20px;
+  position: relative;
+  margin-top: 100px;
+}
+
+.footer-content {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+footer h2 {
+  font-family: 'Saira', sans-serif;
+  font-weight: 700;
+  font-size: 2.5rem;
+  margin-bottom: 2rem;
+  color: white;
+}
+
+footer p {
+  font-family: 'Saira', sans-serif;
+  font-weight: 400;
+  font-size: 1.2rem;
+  line-height: 1.6;
+  margin-bottom: 2.5rem;
+  opacity: 0.9;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.contact-links {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  flex-wrap: wrap;
+}
+
+.contact-link {
+  font-family: 'Saira', sans-serif;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: white;
+  text-decoration: none;
+  padding: 12px 28px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 30px;
+  transition: var(--transition);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.contact-link:hover {
+  background: rgba(255, 255, 255, 0.25);
+  transform: translateY(-3px);
+  box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+}
+
+.contact-link i {
+  font-size: 1.2rem;
+}
+
+/* -------------------- Media Popup -------------------- */
+.media-popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  backdrop-filter: blur(4px);
+}
+
+.media-popup.active {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.popup-content {
+  position: relative;
+  max-width: 90%;
+  max-height: 90%;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+}
+
+.popup-content img, .popup-content video {
+  max-width: 100%;
+  max-height: 80vh;
+  display: block;
+  margin: 0 auto;
+  border-radius: 4px;
+}
+
+.close-popup {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 50px;
+  height: 50px;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Saira', sans-serif;
+  font-weight: 600;
+  font-size: 28px;
+  color: #333;
+  cursor: pointer;
+  transition: var(--transition);
+  border: none;
+  z-index: 10000;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.close-popup:hover {
+  background: white;
+  transform: rotate(90deg) scale(1.1);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+}
+
+.popup-info {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
+  color: white;
+  padding: 30px;
+  text-align: left;
+}
+
+.popup-info h3 {
+  font-family: 'Saira', sans-serif;
+  font-weight: 600;
+  margin-bottom: 10px;
+  font-size: 1.5rem;
+}
+
+.popup-info p {
+  font-family: 'Saira', sans-serif;
+  font-weight: 400;
+  opacity: 0.9;
+  line-height: 1.6;
+}
+
+/* -------------------- Responsive Design -------------------- */
+@media (max-width: 992px) {
+  .exp-item, .project {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+  
+  .content-text, .media-container {
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  
+  .section-header h1 {
+    font-size: 2.5rem;
+  }
+}
+
+@media (max-width: 768px) {
   nav {
-    width:100%;
-    padding:20px;
-    display:flex;
-    justify-content:center;
-    gap:40px;
-    position:fixed;
-    top:0;
-    background:#ffffff;
-    border-bottom:1px solid #ddd;
-    z-index:1000;
+    flex-wrap: wrap;
+    gap: 10px;
+    top: 15px;
   }
-  nav a { text-decoration:none; color:#213D6D; font-weight:bold; }
-  nav a:hover { color:#1a2f5b; }
-
-  .fade-slide { opacity:0; transform:translateY(40px); transition:all 0.8s ease; }
-  .fade-slide.visible { opacity:1; transform:translateY(0); }
-
-  .section { padding:120px 20px; }
-  #experience, #projects { max-width:900px; margin:auto; padding-top:160px; }
-
-  .project, .exp-item {
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    gap:40px;
-    margin:80px 0;
-    border-radius:12px;
-    transition:0.3s ease;
+  
+  nav a {
+    padding: 8px 18px;
+    font-size: 0.9rem;
   }
-  .project:hover, .exp-item:hover { transform:translateY(-5px); box-shadow:0 10px 25px rgba(0,0,0,0.08); }
-  .project:nth-child(even), .exp-item:nth-child(even) { flex-direction:row-reverse; }
-
-  .img-box {
-    width:40%;
-    height:220px;
-    background:#e6ecf7;
-    border-radius:12px;
-    overflow:hidden;
-    cursor:pointer;
-    transition: transform 0.3s ease;
+  
+  .hero h1 {
+    font-size: 2.5rem;
   }
-  .img-box:hover { transform: scale(1.05); }
-
-  .text-box { width:50%; text-align:left; }
-
-  .hero { height:80vh; display:flex; flex-direction:column; justify-content:center; align-items:center; }
-  .projects-link { margin-top:40px; font-size:1.5rem; }
-
-  footer { width:100%; background:#213D6D; color:white; padding:60px 20px; }
-  footer a { color:white; text-decoration:underline; }
-
-  .video-overlay {
-    position: fixed;
-    top:0; left:0;
-    width:100%; height:100%;
-    background:rgba(0,0,0,0.85);
-    display:flex; justify-content:center; align-items:center;
-    opacity:0; pointer-events:none;
-    transition:opacity 0.3s ease; z-index:2000;
+  
+  .hero p {
+    font-size: 1.1rem;
   }
-  .video-overlay video, .video-overlay img {
-    width:90%; max-height:90%; border-radius:12px; object-fit:contain;
+  
+  .section {
+    padding: 80px 20px;
   }
-  .video-overlay.active { opacity:1; pointer-events:all; }
+  
+  .content-text h2 {
+    font-size: 1.7rem;
+  }
+  
+  .contact-links {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .popup-content {
+    max-width: 95%;
+    max-height: 95%;
+  }
+  
+  .close-popup {
+    width: 40px;
+    height: 40px;
+    top: 15px;
+    right: 15px;
+    font-size: 24px;
+  }
+}
 
-  .close-btn {
-    position: absolute; top:20px; right:20px;
-    width:40px; height:40px; background:rgba(255,255,255,0.9);
-    border-radius:50%; display:flex; justify-content:center; align-items:center;
-    font-size:24px; font-weight:bold; color:#213D6D; cursor:pointer; z-index:2100;
-    transition: background 0.2s ease;
+@media (max-width: 480px) {
+  .hero h1 {
+    font-size: 2rem;
   }
-  .close-btn:hover { background:rgba(255,255,255,1); }
+  
+  .hero p {
+    font-size: 1rem;
+  }
+  
+  .section-header h1 {
+    font-size: 2rem;
+  }
+  
+  .content-text {
+    padding: 20px;
+  }
+  
+  .popup-info {
+    padding: 20px;
+  }
+  
+  .popup-info h3 {
+    font-size: 1.2rem;
+  }
+  
+  .popup-info p {
+    font-size: 0.9rem;
+  }
+}
 </style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
-
 <body>
 
+<!-- Hero Section -->
+<section id="home" class="hero">
+  <div class="hero-content">
+    <h1>Yanting Liu</h1>
+    <p>Performance-driven Honors Computer Engineering student with a solid foundation in software development and hardware design. Proven ability to deliver technical solutions in fast-paced environments through two successful co-op work terms.</p>
+  </div>
+  <div class="scroll-indicator">
+    <div class="scroll-arrow"></div>
+  </div>
+</section>
+
+<!-- Navigation -->
 <nav>
-  <a href="#home" class="nav-link">Home</a>
-  <a href="#experience" class="nav-link">Experience</a>
-  <a href="#projects" class="nav-link">Projects</a>
-  <a href="about.html">About</a>
+  <a href="#home" class="nav-link"><i class="fas fa-home"></i> Home</a>
+  <a href="#experience" class="nav-link"><i class="fas fa-briefcase"></i> Experience</a>
+  <a href="#projects" class="nav-link"><i class="fas fa-code"></i> Projects</a>
+  <a href="about.html" class="nav-link"><i class="fas fa-user"></i> About</a>
 </nav>
 
 <main>
-
-<section id="home" class="hero fade-slide">
-  <h1 style="font-size:4rem;">Yanting Liu</h1>
-  <p style="max-width:700px; font-size:1.3rem;">
-    Honors Computer Engineering student with experience in software development,
-    FPGA design, and embedded systems.
-  </p>
-  <div class="projects-link">
-    <a href="#projects">View My Work ↓</a>
-  </div>
-</section>
-
-<section id="experience" class="section fade-slide">
-  <h1>Experience</h1>
-
-  <!-- AniNews -->
-  <div class="exp-item fade-slide">
-    <div class="text-box">
-      <h2>AI Video Automation Engineer — AniNews</h2>
-      <p>Built automation pipelines using Python, Whisper, and Stable-ts for YouTube Shorts.</p>
+  <!-- Experience Section -->
+  <section id="experience" class="section">
+    <div class="section-header">
+      <h1>Experience</h1>
+      <p>Professional roles where I've applied my technical skills to solve real-world problems</p>
     </div>
-    <div class="img-box popup-media">
-      <img src="videoEditing.png" alt="AniNews Video Editing" style="width:100%; height:100%; object-fit:cover; border-radius:12px;">
-    </div>
-  </div>
+    
+    <div class="content-container">
+      <div class="exp-item">
+        <div class="content-text">
+          <h2>AI Video Automation Engineer (Co-op) — AniNews</h2>
+          <p>Engineered a Python-based automation pipeline utilizing OpenAI's Whisper and Stable-ts to generate and synchronize subtitles for YouTube videos, resolving dependency conflicts and enhancing transcription accuracy. Developed a robust script to automate the end-to-end conversion of video downloads into formatted SRT subtitle files, streamlining the content creation workflow.</p>
+          <div class="tech-stack">
+            <span class="tech-tag">Python</span>
+            <span class="tech-tag">OpenAI Whisper</span>
+            <span class="tech-tag">Stable-ts</span>
+            <span class="tech-tag">Automation</span>
+            <span class="tech-tag">Video Processing</span>
+          </div>
+        </div>
+        <div class="media-container" data-media="videoEditing.png" data-title="AI Video Automation" data-desc="Automated subtitle generation pipeline">
+          <img src="videoEditing.png" alt="AniNews Video Automation">
+          <div class="media-overlay">
+            <span>Click to view</span>
+          </div>
+        </div>
+      </div>
 
-  <!-- Mi Bowl Group -->
-  <div class="exp-item fade-slide">
-    <div class="text-box">
-      <h2>Business Analyst & Web Developer — Mi Bowl Group Inc</h2>
-      <p>Developed Shopify features using HTML, CSS, JS, and Liquid, automated workflows, and provided insights.</p>
+      <div class="exp-item">
+        <div class="content-text">
+          <h2>Business Analyst & Web Developer — Mi Bowl Group Inc</h2>
+          <p>Spearheaded the end-to-end development and maintenance of the company's Shopify platform, creating custom features with HTML, CSS, JavaScript, and Liquid to improve user experience and conversion rates. Designed and implemented automated scripts (Python) for product data management, streamlining labeling and categorization processes, which improved data accuracy and reduced manual effort by an estimated 30%.</p>
+          <div class="tech-stack">
+            <span class="tech-tag">Shopify</span>
+            <span class="tech-tag">HTML/CSS</span>
+            <span class="tech-tag">JavaScript</span>
+            <span class="tech-tag">Liquid</span>
+            <span class="tech-tag">Python</span>
+            <span class="tech-tag">Data Analysis</span>
+          </div>
+        </div>
+        <div class="media-container" data-media="deliveryScreenshot.png" data-title="E-commerce Platform" data-desc="Custom Shopify development for Mi Bowl">
+          <img src="deliveryScreenshot.png" alt="Mi Bowl E-commerce Platform">
+          <div class="media-overlay">
+            <span>Click to view</span>
+          </div>
+        </div>
+      </div>
     </div>
-    <div class="img-box"></div>
-  </div>
+  </section>
 
-</section>
-
-<section id="projects" class="section fade-slide">
-  <h1>Projects</h1>
-
-  <!-- HVAC PROJECT -->
-  <div class="project fade-slide">
-    <div class="text-box">
-      <h2>FPGA-Based HVAC Controller</h2>
-      <p>Implemented a VHDL HVAC controller using comparators, counters, shift registers, and FSMs.</p>
+  <!-- Projects Section -->
+  <section id="projects" class="section">
+    <div class="section-header">
+      <h1>Projects</h1>
+      <p>Technical projects showcasing my skills in hardware and software development</p>
     </div>
-    <div class="img-box popup-media">
-      <video src="hvac_demo.mp4" autoplay loop muted playsinline style="width:100%; height:100%; object-fit:cover;"></video>
-    </div>
-  </div>
+    
+    <div class="content-container">
+      <div class="project">
+        <div class="content-text">
+          <h2>FPGA-Based HVAC Controller</h2>
+          <p>Designed and implemented a functional HVAC controller in VHDL on an FPGA board, featuring a 4-bit magnitude comparator, an up/down counter, and a bidirectional shift register. Developed a finite state machine (FSM) to manage system states, including vacation mode and safety shutdowns when doors/windows are open.</p>
+          <div class="tech-stack">
+            <span class="tech-tag">VHDL</span>
+            <span class="tech-tag">FPGA</span>
+            <span class="tech-tag">Finite State Machine</span>
+            <span class="tech-tag">Digital Design</span>
+            <span class="tech-tag">ModelSim/Quartus</span>
+          </div>
+        </div>
+        <div class="media-container" data-media="hvac_demo.mp4" data-type="video" data-title="FPGA HVAC Controller" data-desc="HVAC control system with safety features">
+          <video autoplay loop muted playsinline>
+            <source src="hvac_demo.mp4" type="video/mp4">
+          </video>
+          <div class="media-overlay">
+            <span>Click to view</span>
+          </div>
+        </div>
+      </div>
 
-  <!-- Traffic Light -->
-  <div class="project fade-slide">
-    <div class="text-box">
-      <h2>Traffic Light Controller (FSM)</h2>
-      <p>Designed synchronous FSM with pedestrian logic and countdown timing on a 50 MHz FPGA board.</p>
-    </div>
-    <div class="img-box popup-media">
-      <img src="statediagram.png" alt="Traffic Light State Diagram" style="width:100%; height:100%; object-fit:cover; border-radius:12px;">
-    </div>
-  </div>
+      <div class="project">
+        <div class="content-text">
+          <h2>Traffic Light Controller (VHDL State Machine)</h2>
+          <p>Architected a synchronous state machine in VHDL to control a traffic light system for NS and EW directions, ensuring safe and correct timing sequences. Implemented synchronized input handling with holding registers for pedestrian requests, including a fast-forward function to prioritize crosswalk signals.</p>
+          <div class="tech-stack">
+            <span class="tech-tag">VHDL</span>
+            <span class="tech-tag">Finite State Machine</span>
+            <span class="tech-tag">FPGA</span>
+            <span class="tech-tag">Digital Logic</span>
+            <span class="tech-tag">Synchronous Design</span>
+          </div>
+        </div>
+        <div class="media-container" data-media="statediagram.png" data-title="Traffic Light FSM" data-desc="State diagram for traffic light controller">
+          <img src="statediagram.png" alt="Traffic Light State Diagram">
+          <div class="media-overlay">
+            <span>Click to view</span>
+          </div>
+        </div>
+      </div>
 
-  <!-- STM32 -->
-  <div class="project fade-slide">
-    <div class="text-box">
-      <h2>STM32 Humidity Sensor System</h2>
-      <p>Built a humidity monitoring system using STM32 Nucleo, embedded C drivers, and full hardware–software integration in a 3-person team.</p>
+      <div class="project">
+        <div class="content-text">
+          <h2>STM32 Humidity Sensor System</h2>
+          <p>Collaborated in a team of 3 to design, prototype, and test a humidity sensing system using an STM32 Nucleo board. Wrote embedded C code to read data from the sensor and handle system integration. Participated in all phases from project proposal and planning to debugging and final validation of the integrated hardware and software.</p>
+          <div class="tech-stack">
+            <span class="tech-tag">STM32</span>
+            <span class="tech-tag">Embedded C</span>
+            <span class="tech-tag">Sensor Integration</span>
+            <span class="tech-tag">Hardware/Software Co-design</span>
+            <span class="tech-tag">Team Collaboration</span>
+          </div>
+        </div>
+        <div class="media-container" data-media="stm32_noProjectImage.jpg" data-title="STM32 Sensor System" data-desc="Humidity monitoring system">
+          <img src="stm32_noProjectImage.jpg" alt="STM32 Humidity Sensor">
+          <div class="media-overlay">
+            <span>Click to view</span>
+          </div>
+        </div>
+      </div>
     </div>
-    <div class="img-box popup-media">
-      <img src="stm32_noProjectImage.png" alt="STM32 Humidity Sensor" style="width:100%; height:100%; object-fit:cover; border-radius:12px;">
-    </div>
-  </div>
-
-</section>
-
+  </section>
 </main>
 
-<footer>
-  <h2>Let's Get to Know Each Other</h2>
-  <p>Connect with me on <a href="#">LinkedIn</a> or email <a href="mailto:y464liu@uwaterloo.ca">y464liu@uwaterloo.ca</a>.</p>
+<!-- Footer -->
+<footer id="contact">
+  <div class="footer-content">
+    <h2>Let's Connect</h2>
+    <p>I'm always open to discussing new opportunities, collaborations, or just chatting about technology and innovation.</p>
+    <div class="contact-links">
+      <a href="https://linkedin.com/in/yantingliu1" class="contact-link" target="_blank">
+        <i class="fab fa-linkedin"></i> LinkedIn
+      </a>
+      <a href="mailto:y464liu@uwaterloo.ca" class="contact-link">
+        <i class="fas fa-envelope"></i> Email
+      </a>
+      <a href="tel:647-524-4348" class="contact-link">
+        <i class="fas fa-phone"></i> Phone
+      </a>
+    </div>
+  </div>
 </footer>
 
-<div id="mediaOverlay" class="video-overlay">
-  <div class="close-btn" id="closeBtn">×</div>
-  <video id="overlayVideo" autoplay loop muted playsinline style="display:none;"></video>
-  <img id="overlayImg" style="display:none;">
+<!-- Media Popup -->
+<div class="media-popup" id="mediaPopup">
+  <button class="close-popup" id="closePopup">×</button>
+  <div class="popup-content">
+    <img id="popupImage" alt="">
+    <video id="popupVideo" controls autoplay loop></video>
+    <div class="popup-info">
+      <h3 id="popupTitle"></h3>
+      <p id="popupDesc"></p>
+    </div>
+  </div>
 </div>
 
 <script>
-  // Fade-in animation
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if(entry.isIntersecting) entry.target.classList.add('visible');
-    });
-  });
-  document.querySelectorAll('.fade-slide').forEach(el => observer.observe(el));
-
-  // Smooth scroll
-  function smoothScroll(event){
-    event.preventDefault();
-    const id = this.getAttribute('href').replace('#','');
-    const target = document.getElementById(id);
-    const navHeight = document.querySelector('nav').offsetHeight;
-    window.scrollTo({ top: target.offsetTop - navHeight - 20, behavior:'smooth' });
+// ==================== Scroll Animations ====================
+class ScrollAnimations {
+  constructor() {
+    this.observer = null;
+    this.init();
   }
-  document.querySelectorAll('.nav-link, .projects-link a').forEach(link => link.addEventListener('click', smoothScroll));
-
-  // Popup media overlay
-  const popupBoxes = document.querySelectorAll('.popup-media');
-  const overlay = document.getElementById('mediaOverlay');
-  const overlayVideo = document.getElementById('overlayVideo');
-  const overlayImg = document.getElementById('overlayImg');
-  const closeBtn = document.getElementById('closeBtn');
-
-  popupBoxes.forEach(box => {
-    box.addEventListener('click', () => {
-      const video = box.querySelector('video');
-      const img = box.querySelector('img');
-
-      if(video){
-        overlayVideo.src = video.src;
-        overlayVideo.style.display = 'block';
-        overlayImg.style.display = 'none';
-      } else if(img){
-        overlayImg.src = img.src;
-        overlayImg.style.display = 'block';
-        overlayVideo.style.display = 'none';
-      }
-
-      overlay.classList.add('active');
+  
+  init() {
+    // Create Intersection Observer for fade animations
+    this.observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
     });
-  });
+    
+    // Observe all fade elements
+    document.querySelectorAll('.exp-item, .project, .section-header').forEach(el => {
+      this.observer.observe(el);
+    });
+    
+    // Handle scroll indicator click
+    document.querySelector('.scroll-indicator').addEventListener('click', () => {
+      const experienceSection = document.getElementById('experience');
+      if (experienceSection) {
+        experienceSection.scrollIntoView({ behavior: 'smooth' });
+      }
+    });
+  }
+}
 
-  closeBtn.addEventListener('click', () => {
-    overlay.classList.remove('active');
-    overlayVideo.src = '';
-    overlayVideo.style.display = 'none';
-    overlayImg.src = '';
-    overlayImg.style.display = 'none';
-  });
+// ==================== Media Popup ====================
+class MediaPopup {
+  constructor() {
+    this.popup = document.getElementById('mediaPopup');
+    this.popupImage = document.getElementById('popupImage');
+    this.popupVideo = document.getElementById('popupVideo');
+    this.popupTitle = document.getElementById('popupTitle');
+    this.popupDesc = document.getElementById('popupDesc');
+    this.closeBtn = document.getElementById('closePopup');
+    
+    this.init();
+  }
+  
+  init() {
+    // Add click handlers to all media containers
+    document.querySelectorAll('.media-container').forEach(container => {
+      container.addEventListener('click', (e) => {
+        e.preventDefault();
+        
+        const mediaSrc = container.getAttribute('data-media');
+        const mediaType = container.getAttribute('data-type') || 'image';
+        const title = container.getAttribute('data-title') || '';
+        const desc = container.getAttribute('data-desc') || '';
+        
+        this.openPopup(mediaSrc, mediaType, title, desc);
+      });
+    });
+    
+    // Close popup handlers
+    this.closeBtn.addEventListener('click', () => this.closePopup());
+    this.popup.addEventListener('click', (e) => {
+      if (e.target === this.popup) {
+        this.closePopup();
+      }
+    });
+    
+    // Close with Escape key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && this.popup.classList.contains('active')) {
+        this.closePopup();
+      }
+    });
+  }
+  
+  openPopup(src, type, title, desc) {
+    if (type === 'video') {
+      this.popupVideo.src = src;
+      this.popupVideo.style.display = 'block';
+      this.popupImage.style.display = 'none';
+      this.popupVideo.play();
+    } else {
+      this.popupImage.src = src;
+      this.popupImage.style.display = 'block';
+      this.popupVideo.style.display = 'none';
+      this.popupVideo.pause();
+    }
+    
+    this.popupTitle.textContent = title;
+    this.popupDesc.textContent = desc;
+    this.popup.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+  
+  closePopup() {
+    this.popup.classList.remove('active');
+    this.popupVideo.pause();
+    this.popupVideo.src = '';
+    document.body.style.overflow = 'auto';
+    
+    // Reset after transition
+    setTimeout(() => {
+      this.popupImage.src = '';
+      this.popupImage.style.display = 'none';
+      this.popupVideo.style.display = 'none';
+    }, 300);
+  }
+}
+
+// ==================== Initialize Everything ====================
+document.addEventListener('DOMContentLoaded', () => {
+  // Initialize components
+  const scrollAnimations = new ScrollAnimations();
+  const mediaPopup = new MediaPopup();
+  
+  // Add some initial animation to hero section
+  setTimeout(() => {
+    document.querySelector('.hero-content').style.opacity = '1';
+    document.querySelector('.hero-content').style.transform = 'translateY(0)';
+  }, 300);
+  
+  // Pre-set hero content styles
+  document.querySelector('.hero-content').style.cssText = `
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  `;
+  
+  console.log('Portfolio website initialized successfully!');
+});
 </script>
-
 </body>
 </html>
