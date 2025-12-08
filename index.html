@@ -50,11 +50,11 @@ body {
   top: 0;
   left: 0;
   width: 100%;
-  background: rgba(255, 255, 255, 0.98);
+  background: var(--primary-color);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
-  border-bottom: 1px solid var(--border-color);
-  box-shadow: 0 4px 20px rgba(33, 61, 109, 0.05);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
   z-index: 1000;
   padding: 0 5%;
 }
@@ -72,7 +72,7 @@ body {
 .nav-logo {
   font-size: 1.8rem;
   font-weight: 700;
-  color: var(--primary-color);
+  color: white;
   text-decoration: none;
   display: flex;
   align-items: center;
@@ -81,12 +81,12 @@ body {
 }
 
 .nav-logo:hover {
-  color: var(--accent-color);
+  color: var(--accent-light);
   transform: translateY(-2px);
 }
 
 .nav-logo i {
-  color: var(--accent-color);
+  color: var(--accent-light);
   font-size: 1.6rem;
 }
 
@@ -98,7 +98,7 @@ body {
 
 .nav-link {
   text-decoration: none;
-  color: var(--text-color);
+  color: rgba(255, 255, 255, 0.9);
   font-weight: 500;
   font-size: 0.95rem;
   padding: 12px 24px;
@@ -112,21 +112,21 @@ body {
 }
 
 .nav-link:hover {
-  background: rgba(33, 61, 109, 0.05);
-  color: var(--accent-color);
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
   transform: translateY(-1px);
 }
 
 .nav-link.active {
-  background: var(--primary-color);
+  background: rgba(255, 255, 255, 0.15);
   color: white;
-  box-shadow: 0 4px 12px rgba(33, 61, 109, 0.15);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
 .nav-link.active:hover {
-  background: var(--primary-light);
+  background: rgba(255, 255, 255, 0.2);
   transform: translateY(-2px);
-  box-shadow: 0 6px 16px rgba(33, 61, 109, 0.2);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
 }
 
 .nav-link i {
@@ -139,7 +139,7 @@ body {
   background: none;
   border: none;
   font-size: 1.5rem;
-  color: var(--primary-color);
+  color: white;
   cursor: pointer;
   padding: 8px;
   border-radius: 8px;
@@ -147,7 +147,7 @@ body {
 }
 
 .menu-toggle:hover {
-  background: rgba(33, 61, 109, 0.05);
+  background: rgba(255, 255, 255, 0.1);
 }
 
 /* ==================== HERO SECTION ==================== */
@@ -295,135 +295,13 @@ body {
   transform: translateY(-3px);
 }
 
-/* ==================== FEATURED PROJECTS SECTION ==================== */
-.featured-projects {
+/* ==================== PORTFOLIO HIGHLIGHTS SECTION ==================== */
+.portfolio-highlights {
   padding: 100px 20px;
   background: var(--background-light);
 }
 
-.projects-container {
-  max-width: 1200px;
-  margin: 0 auto;
-}
-
-.projects-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-  gap: 30px;
-  margin-top: 50px;
-}
-
-.project-card {
-  background: white;
-  border-radius: 20px;
-  overflow: hidden;
-  box-shadow: var(--shadow);
-  transition: var(--transition);
-  border: 1px solid var(--border-color);
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-}
-
-.project-card:hover {
-  transform: translateY(-10px);
-  box-shadow: var(--shadow-hover);
-}
-
-.project-media {
-  height: 200px;
-  overflow: hidden;
-  position: relative;
-}
-
-.project-media img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.6s ease;
-}
-
-.project-card:hover .project-media img {
-  transform: scale(1.05);
-}
-
-.project-badge {
-  position: absolute;
-  top: 15px;
-  right: 15px;
-  background: var(--accent-color);
-  color: white;
-  padding: 6px 12px;
-  border-radius: 20px;
-  font-size: 0.8rem;
-  font-weight: 600;
-}
-
-.project-content {
-  padding: 30px;
-  flex-grow: 1;
-  display: flex;
-  flex-direction: column;
-}
-
-.project-content h3 {
-  font-size: 1.5rem;
-  color: var(--primary-color);
-  margin-bottom: 15px;
-  line-height: 1.3;
-}
-
-.project-content p {
-  color: var(--text-light);
-  margin-bottom: 20px;
-  flex-grow: 1;
-}
-
-.project-tech {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin-bottom: 20px;
-}
-
-.tech-tag {
-  background: rgba(33, 61, 109, 0.08);
-  color: var(--primary-color);
-  padding: 6px 12px;
-  border-radius: 15px;
-  font-size: 0.85rem;
-  font-weight: 500;
-  transition: var(--transition);
-}
-
-.tech-tag:hover {
-  background: var(--primary-color);
-  color: white;
-}
-
-.project-link {
-  margin-top: auto;
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  color: var(--accent-color);
-  text-decoration: none;
-  font-weight: 500;
-  transition: var(--transition);
-}
-
-.project-link:hover {
-  gap: 12px;
-  color: var(--primary-color);
-}
-
-/* ==================== SKILLS SECTION ==================== */
-.skills {
-  padding: 100px 20px;
-  background: var(--secondary-color);
-}
-
-.skills-container {
+.portfolio-container {
   max-width: 1200px;
   margin: 0 auto;
 }
@@ -460,6 +338,139 @@ body {
   max-width: 600px;
   margin: 0 auto;
   line-height: 1.6;
+}
+
+/* Portfolio Item Styles */
+.portfolio-item {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  margin: 80px 0;
+  align-items: center;
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.portfolio-item.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.portfolio-item:nth-child(even) {
+  direction: rtl;
+}
+
+.portfolio-item:nth-child(even) > * {
+  direction: ltr;
+}
+
+.portfolio-text {
+  text-align: left;
+  padding: 30px;
+}
+
+.portfolio-text h3 {
+  font-size: 1.8rem;
+  color: var(--primary-color);
+  margin-bottom: 20px;
+  line-height: 1.3;
+}
+
+.portfolio-text p {
+  font-size: 1.1rem;
+  line-height: 1.7;
+  color: var(--text-light);
+  margin-bottom: 1.5rem;
+}
+
+.tech-stack {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 2rem;
+}
+
+.tech-tag {
+  font-weight: 500;
+  background: rgba(33, 61, 109, 0.1);
+  color: var(--primary-color);
+  padding: 8px 18px;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  transition: var(--transition);
+}
+
+.tech-tag:hover {
+  background: var(--primary-color);
+  color: white;
+  transform: translateY(-2px);
+}
+
+.portfolio-media {
+  position: relative;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  transition: var(--transition);
+  height: 300px;
+  cursor: pointer;
+}
+
+.portfolio-media:hover {
+  transform: translateY(-10px) scale(1.02);
+  box-shadow: var(--shadow-hover);
+}
+
+.portfolio-media img,
+.portfolio-media video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.portfolio-media:hover img,
+.portfolio-media:hover video {
+  transform: scale(1.05);
+}
+
+.media-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.3), transparent);
+  display: flex;
+  align-items: flex-end;
+  padding: 20px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.portfolio-media:hover .media-overlay {
+  opacity: 1;
+}
+
+.media-overlay span {
+  font-weight: 600;
+  color: white;
+  font-size: 0.9rem;
+  background: rgba(0,0,0,0.7);
+  padding: 8px 16px;
+  border-radius: 20px;
+}
+
+/* ==================== SKILLS SECTION ==================== */
+.skills {
+  padding: 100px 20px;
+  background: var(--secondary-color);
+}
+
+.skills-container {
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
 .skills-grid {
@@ -837,6 +848,98 @@ body {
   opacity: 0.7;
 }
 
+/* ==================== MEDIA POPUP ==================== */
+.media-popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  backdrop-filter: blur(4px);
+}
+
+.media-popup.active {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.popup-content {
+  position: relative;
+  max-width: 90%;
+  max-height: 90%;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+}
+
+.popup-content img, .popup-content video {
+  max-width: 100%;
+  max-height: 80vh;
+  display: block;
+  margin: 0 auto;
+  border-radius: 4px;
+}
+
+.close-popup {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 50px;
+  height: 50px;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 28px;
+  color: #333;
+  cursor: pointer;
+  transition: var(--transition);
+  border: none;
+  z-index: 10000;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.close-popup:hover {
+  background: white;
+  transform: rotate(90deg) scale(1.1);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+}
+
+.popup-info {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
+  color: white;
+  padding: 30px;
+  text-align: left;
+}
+
+.popup-info h3 {
+  font-weight: 600;
+  margin-bottom: 10px;
+  font-size: 1.5rem;
+}
+
+.popup-info p {
+  opacity: 0.9;
+  line-height: 1.6;
+}
+
 /* ==================== RESPONSIVE DESIGN ==================== */
 @media (max-width: 1024px) {
   .hero-container {
@@ -858,8 +961,14 @@ body {
     justify-content: center;
   }
   
-  .projects-grid {
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  .portfolio-item {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+  
+  .portfolio-text, .portfolio-media {
+    max-width: 600px;
+    margin: 0 auto;
   }
 }
 
@@ -881,7 +990,7 @@ body {
     top: 80px;
     left: 0;
     right: 0;
-    background: white;
+    background: var(--primary-color);
     flex-direction: column;
     padding: 20px;
     gap: 10px;
@@ -889,8 +998,8 @@ body {
     opacity: 0;
     visibility: hidden;
     transition: all 0.3s ease;
-    box-shadow: 0 10px 30px rgba(33, 61, 109, 0.1);
-    border-top: 1px solid var(--border-color);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 0 0 20px 20px;
   }
   
@@ -916,6 +1025,14 @@ body {
   
   .section-header h2 {
     font-size: 2.2rem;
+  }
+  
+  .portfolio-text, .portfolio-media {
+    padding: 20px;
+  }
+  
+  .portfolio-text h3 {
+    font-size: 1.5rem;
   }
   
   .education-card,
@@ -980,6 +1097,10 @@ body {
     flex-direction: column;
   }
   
+  .portfolio-media {
+    height: 250px;
+  }
+  
   .footer h2 {
     font-size: 2rem;
   }
@@ -998,8 +1119,29 @@ body {
     font-size: 1.5rem;
   }
   
-  .projects-grid {
-    grid-template-columns: 1fr;
+  .popup-content {
+    max-width: 95%;
+    max-height: 95%;
+  }
+  
+  .close-popup {
+    width: 40px;
+    height: 40px;
+    top: 15px;
+    right: 15px;
+    font-size: 24px;
+  }
+  
+  .popup-info {
+    padding: 20px;
+  }
+  
+  .popup-info h3 {
+    font-size: 1.2rem;
+  }
+  
+  .popup-info p {
+    font-size: 0.9rem;
   }
 }
 
@@ -1022,18 +1164,6 @@ body {
 .delay-1 { animation-delay: 0.2s; }
 .delay-2 { animation-delay: 0.4s; }
 .delay-3 { animation-delay: 0.6s; }
-
-/* ==================== LOADING ANIMATION ==================== */
-.loading {
-  opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 0.8s ease, transform 0.8s ease;
-}
-
-.loading.loaded {
-  opacity: 1;
-  transform: translateY(0);
-}
 </style>
 </head>
 
@@ -1089,68 +1219,95 @@ body {
       <p class="fade-in delay-2">Bridging hardware and software with a passion for creating intelligent systems. I'm a Computer Engineering student at the University of Waterloo focused on developing scalable solutions through FPGA design, embedded systems, and full-stack development.</p>
       
       <p class="fade-in delay-2">My work spans from designing hardware controllers in VHDL to building AI-powered automation pipelines and enterprise e-commerce platforms. I excel at solving complex technical challenges with elegant, scalable solutions.</p>
+      
+      <div class="hero-cta fade-in delay-3">
+        <a href="#contact" class="btn btn-primary">
+          <i class="fas fa-paper-plane"></i>
+          Contact Me
+        </a>
+        <a href="#projects" class="btn btn-secondary">
+          <i class="fas fa-laptop-code"></i>
+          View Projects
+        </a>
+        <a href="https://linkedin.com/in/yantingliu1" target="_blank" class="btn btn-outline">
+          <i class="fab fa-linkedin"></i>
+          LinkedIn
+        </a>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- Featured Projects Section -->
-<section id="projects" class="featured-projects">
-  <div class="projects-container">
+<!-- Portfolio Highlights Section -->
+<section id="projects" class="portfolio-highlights">
+  <div class="portfolio-container">
     <div class="section-header">
       <h2>Featured Projects</h2>
       <p>Showcasing innovative solutions that bridge hardware capabilities with software intelligence</p>
     </div>
     
-    <div class="projects-grid">
-      <div class="project-card fade-in">
-        <div class="project-media">
-          <img src="videoEditing.png" alt="AI Video Automation Pipeline">
-          <div class="project-badge">AI Automation</div>
-        </div>
-        <div class="project-content">
-          <h3>AI-Powered Video Subtitle Automation</h3>
-          <p>Developed an end-to-end Python automation pipeline using OpenAI's Whisper and Stable-ts models to generate and synchronize subtitles for YouTube content. Reduced manual subtitle creation time by 90% while improving accuracy through advanced speech recognition algorithms.</p>
-          <div class="project-tech">
-            <span class="tech-tag">Python</span>
-            <span class="tech-tag">OpenAI Whisper</span>
-            <span class="tech-tag">Stable-ts</span>
-            <span class="tech-tag">FFmpeg</span>
-          </div>
+    <!-- AI Video Automation Project -->
+    <div class="portfolio-item">
+      <div class="portfolio-text">
+        <h3>AI-Powered Video Subtitle Automation</h3>
+        <p>Developed an end-to-end Python automation pipeline using OpenAI's Whisper and Stable-ts models to generate and synchronize subtitles for YouTube content. Reduced manual subtitle creation time by 90% while improving accuracy through advanced speech recognition algorithms.</p>
+        <div class="tech-stack">
+          <span class="tech-tag">Python</span>
+          <span class="tech-tag">OpenAI Whisper</span>
+          <span class="tech-tag">Stable-ts</span>
+          <span class="tech-tag">FFmpeg</span>
+          <span class="tech-tag">AI Automation</span>
         </div>
       </div>
-      
-      <div class="project-card fade-in delay-1">
-        <div class="project-media">
-          <img src="deliveryScreenshot.png" alt="E-commerce Platform Development">
-          <div class="project-badge">Full-Stack</div>
-        </div>
-        <div class="project-content">
-          <h3>Enterprise E-commerce Platform</h3>
-          <p>Led full-stack Shopify development and business analytics initiatives, creating custom e-commerce features that improved conversion rates by 25%. Automated product data management through Python scripts, reducing manual processing time by 30% while maintaining 99% data accuracy.</p>
-          <div class="project-tech">
-            <span class="tech-tag">Shopify</span>
-            <span class="tech-tag">JavaScript</span>
-            <span class="tech-tag">Python</span>
-            <span class="tech-tag">Liquid</span>
-            <span class="tech-tag">Power BI</span>
-          </div>
+      <div class="portfolio-media" data-media="videoEditing.png" data-title="AI Video Automation" data-desc="Automated subtitle generation pipeline">
+        <img src="videoEditing.png" alt="AI Video Automation Pipeline">
+        <div class="media-overlay">
+          <span>Click to view</span>
         </div>
       </div>
-      
-      <div class="project-card fade-in delay-2">
-        <div class="project-media">
-          <img src="hvac_demo.mp4" alt="FPGA HVAC Controller" style="object-fit: contain; background: #f0f4f8;">
-          <div class="project-badge">Hardware</div>
+    </div>
+
+    <!-- E-commerce Platform Project -->
+    <div class="portfolio-item">
+      <div class="portfolio-text">
+        <h3>Enterprise E-commerce Platform</h3>
+        <p>Led full-stack Shopify development and business analytics initiatives, creating custom e-commerce features that improved conversion rates by 25%. Automated product data management through Python scripts, reducing manual processing time by 30% while maintaining 99% data accuracy.</p>
+        <div class="tech-stack">
+          <span class="tech-tag">Shopify</span>
+          <span class="tech-tag">JavaScript</span>
+          <span class="tech-tag">Python</span>
+          <span class="tech-tag">Liquid</span>
+          <span class="tech-tag">Power BI</span>
+          <span class="tech-tag">Full-Stack</span>
         </div>
-        <div class="project-content">
-          <h3>FPGA-Based Intelligent HVAC Controller</h3>
-          <p>Architected a VHDL-based HVAC control system on FPGA hardware, implementing a finite state machine with safety features including vacation mode and automatic shutdown protocols. The design demonstrated robust digital logic principles and real-time system management capabilities.</p>
-          <div class="project-tech">
-            <span class="tech-tag">VHDL</span>
-            <span class="tech-tag">FPGA</span>
-            <span class="tech-tag">ModelSim</span>
-            <span class="tech-tag">Digital Logic</span>
-          </div>
+      </div>
+      <div class="portfolio-media" data-media="deliveryScreenshot.png" data-title="E-commerce Platform" data-desc="Custom Shopify development">
+        <img src="deliveryScreenshot.png" alt="E-commerce Platform Development">
+        <div class="media-overlay">
+          <span>Click to view</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- FPGA HVAC Controller Project -->
+    <div class="portfolio-item">
+      <div class="portfolio-text">
+        <h3>FPGA-Based Intelligent HVAC Controller</h3>
+        <p>Architected a VHDL-based HVAC control system on FPGA hardware, implementing a finite state machine with safety features including vacation mode and automatic shutdown protocols. The design demonstrated robust digital logic principles and real-time system management capabilities.</p>
+        <div class="tech-stack">
+          <span class="tech-tag">VHDL</span>
+          <span class="tech-tag">FPGA</span>
+          <span class="tech-tag">ModelSim</span>
+          <span class="tech-tag">Digital Logic</span>
+          <span class="tech-tag">Finite State Machine</span>
+        </div>
+      </div>
+      <div class="portfolio-media" data-media="hvac_demo.mp4" data-type="video" data-title="FPGA HVAC Controller" data-desc="HVAC control system with safety features">
+        <video autoplay loop muted playsinline>
+          <source src="hvac_demo.mp4" type="video/mp4">
+        </video>
+        <div class="media-overlay">
+          <span>Click to view</span>
         </div>
       </div>
     </div>
@@ -1176,7 +1333,6 @@ body {
           <span class="skill-tag">JavaScript</span>
           <span class="skill-tag">HTML/CSS</span>
           <span class="skill-tag">Liquid</span>
-          <span class="skill-tag">Embedded C</span>
         </div>
       </div>
       
@@ -1200,7 +1356,6 @@ body {
           <span class="skill-tag">FPGA Design</span>
           <span class="skill-tag">Digital Logic</span>
           <span class="skill-tag">Embedded Systems</span>
-          <span class="skill-tag">Finite State Machines</span>
           <span class="skill-tag">Software Architecture</span>
           <span class="skill-tag">Object-Oriented Design</span>
           <span class="skill-tag">AI/ML Automation</span>
@@ -1211,9 +1366,9 @@ body {
       <div class="skill-category fade-in delay-3">
         <h3><i class="fas fa-language"></i> Languages & Soft Skills</h3>
         <div class="skills-list">
-          <span class="skill-tag">English (Professional)</span>
-          <span class="skill-tag">French (Fluent)</span>
-          <span class="skill-tag">Mandarin (Native)</span>
+          <span class="skill-tag">English</span>
+          <span class="skill-tag">French (Professional)</span>
+          <span class="skill-tag">Mandarin (Fluent)</span>
         </div>
       </div>
     </div>
@@ -1227,7 +1382,7 @@ body {
       <h2>Professional Experience</h2>
       <p>Hands-on roles where I've applied technical expertise to solve real-world challenges and deliver measurable impact</p>
     </div>
-    
+
     <div class="timeline">
       <div class="timeline-item fade-in">
         <div class="timeline-date">
@@ -1366,6 +1521,19 @@ body {
   </div>
 </footer>
 
+<!-- Media Popup -->
+<div class="media-popup" id="mediaPopup">
+  <button class="close-popup" id="closePopup">×</button>
+  <div class="popup-content">
+    <img id="popupImage" alt="">
+    <video id="popupVideo" controls autoplay loop></video>
+    <div class="popup-info">
+      <h3 id="popupTitle"></h3>
+      <p id="popupDesc"></p>
+    </div>
+  </div>
+</div>
+
 <script>
 // Mobile Menu Toggle
 const menuToggle = document.querySelector('.menu-toggle');
@@ -1432,41 +1600,94 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
   });
 });
 
-// Animation on scroll with Intersection Observer
-const observerOptions = {
-  threshold: 0.1,
-  rootMargin: '0px 0px -50px 0px'
-};
-
-const observer = new IntersectionObserver((entries) => {
+// Animation on scroll for portfolio items
+const portfolioObserver = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
     if (entry.isIntersecting) {
-      entry.target.classList.add('loaded');
+      entry.target.classList.add('visible');
     }
   });
-}, observerOptions);
+}, {
+  threshold: 0.1,
+  rootMargin: '0px 0px -50px 0px'
+});
 
-// Observe elements for animation
-document.querySelectorAll('.project-card, .skill-category, .timeline-item, .education-card').forEach(el => {
-  el.classList.add('loading');
-  observer.observe(el);
+// Observe portfolio items for animation
+document.querySelectorAll('.portfolio-item').forEach(el => {
+  portfolioObserver.observe(el);
+});
+
+// Media Popup functionality
+const mediaPopup = document.getElementById('mediaPopup');
+const popupImage = document.getElementById('popupImage');
+const popupVideo = document.getElementById('popupVideo');
+const popupTitle = document.getElementById('popupTitle');
+const popupDesc = document.getElementById('popupDesc');
+const closePopup = document.getElementById('closePopup');
+
+// Add click handlers to all media containers
+document.querySelectorAll('.portfolio-media').forEach(container => {
+  container.addEventListener('click', (e) => {
+    e.preventDefault();
+    
+    const mediaSrc = container.getAttribute('data-media');
+    const mediaType = container.getAttribute('data-type') || 'image';
+    const title = container.getAttribute('data-title') || '';
+    const desc = container.getAttribute('data-desc') || '';
+    
+    // Open popup
+    if (mediaType === 'video') {
+      popupVideo.src = mediaSrc;
+      popupVideo.style.display = 'block';
+      popupImage.style.display = 'none';
+      popupVideo.play();
+    } else {
+      popupImage.src = mediaSrc;
+      popupImage.style.display = 'block';
+      popupVideo.style.display = 'none';
+      popupVideo.pause();
+    }
+    
+    popupTitle.textContent = title;
+    popupDesc.textContent = desc;
+    mediaPopup.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  });
+});
+
+// Close popup handlers
+closePopup.addEventListener('click', () => {
+  mediaPopup.classList.remove('active');
+  popupVideo.pause();
+  popupVideo.src = '';
+  document.body.style.overflow = 'auto';
+  
+  // Reset after transition
+  setTimeout(() => {
+    popupImage.src = '';
+    popupImage.style.display = 'none';
+    popupVideo.style.display = 'none';
+  }, 300);
+});
+
+// Close popup when clicking outside
+mediaPopup.addEventListener('click', (e) => {
+  if (e.target === mediaPopup) {
+    closePopup.click();
+  }
+});
+
+// Close popup with Escape key
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape' && mediaPopup.classList.contains('active')) {
+    closePopup.click();
+  }
 });
 
 // Initialize with fade-in for hero elements
 document.querySelectorAll('.hero .fade-in').forEach(el => {
   el.style.opacity = '1';
   el.style.transform = 'translateY(0)';
-});
-
-// Project card hover effects
-document.querySelectorAll('.project-card').forEach(card => {
-  card.addEventListener('mouseenter', () => {
-    card.style.transform = 'translateY(-10px)';
-  });
-  
-  card.addEventListener('mouseleave', () => {
-    card.style.transform = 'translateY(0)';
-  });Q
 });
 
 // Skill tag hover effects
@@ -1483,9 +1704,6 @@ document.querySelectorAll('.skill-tag').forEach(tag => {
 // Initialize page
 document.addEventListener('DOMContentLoaded', () => {
   console.log('Portfolio loaded successfully!');
-  
-  // Add loaded class to body for CSS transitions
-  document.body.classList.add('loaded');
 });
 </script>
 </body>
