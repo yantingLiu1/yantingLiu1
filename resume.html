@@ -1,0 +1,864 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Resume — Yanting Liu</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+/* ================= RESET & BASE ================= */
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+  font-family: 'Inter', sans-serif;
+  line-height: 1.6;
+  color: #333;
+  background-color: #f8f9fa;
+  overflow-x: hidden;
+  padding-top: 70px;
+}
+
+/* ================= NAVBAR ================= */
+.top-nav {
+  position: fixed;
+  top: 0; left: 0; width: 100%; height: 70px;
+  background: white;
+  display: flex; align-items: center; justify-content: center;
+  z-index: 1000;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+}
+
+.nav-container {
+  width: 100%; max-width: 1400px;
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 0 2rem;
+}
+
+.logo { font-size:1.4rem; font-weight:700; color:#1a1a2e; }
+
+.nav-links { display:flex; gap:2rem; }
+.nav-links a {
+  color:#666; text-decoration:none; font-weight:500; position:relative; padding:0.5rem 0;
+}
+.nav-links a:hover { color:#0ea5e9; }
+.nav-links a.active { color:#1a1a2e; font-weight:600; }
+.nav-links a.active::after {
+  content:'';
+  position:absolute; bottom:0; left:0; width:100%; height:2px;
+  background:#0ea5e9;
+}
+
+.social-icons { display:flex; gap:1rem; }
+.social-icons a { color:#666; font-size:1.1rem; transition:0.3s; }
+.social-icons a:hover { color:#0ea5e9; transform:translateY(-2px); }
+
+.menu-toggle { display:none; background:none; border:none; font-size:1.3rem; cursor:pointer; }
+
+@media(max-width:768px){
+  .menu-toggle { display:block; }
+  .nav-links {
+    position: fixed; top:70px; left:0; width:100%;
+    background:white; flex-direction:column; padding:1.5rem; gap:1rem;
+    transform: translateY(-100%); opacity:0; transition:0.3s ease;
+  }
+  .nav-links.active { transform: translateY(0); opacity:1; }
+  .social-icons { display:none; }
+}
+
+/* Main Content */
+.main-content {
+  padding: 0;
+  width: 100%;
+  min-height: 100vh;
+}
+
+/* Resume Header - White with Images */
+.resume-header-white {
+  background: white;
+  color: #333;
+  padding: 80px 40px 40px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.resume-header-content {
+  max-width: 1200px;
+  margin: 0 auto 50px;
+  position: relative;
+  z-index: 1;
+}
+
+.resume-header-white h1 {
+  font-size: 3.5rem;
+  font-weight: 800;
+  margin-bottom: 20px;
+  color: #1a1a2e;
+  background: linear-gradient(135deg, #1a1a2e 0%, #0ea5e9 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.resume-header-white p {
+  font-size: 1.2rem;
+  color: #666;
+  margin-bottom: 40px;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.download-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 32px;
+  background: linear-gradient(135deg, #0ea5e9 0%, #1a1a2e 100%);
+  color: white;
+  text-decoration: none;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  border: none;
+  box-shadow: 0 4px 15px rgba(14, 165, 233, 0.2);
+}
+
+.download-btn:hover {
+  background: linear-gradient(135deg, #1a1a2e 0%, #0ea5e9 100%);
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(14, 165, 233, 0.3);
+}
+
+/* Resume Images Container */
+.resume-images-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.resume-images {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 30px;
+  margin-top: 30px;
+}
+
+.resume-images img {
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+}
+
+.resume-images img:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+}
+
+/* Section Styles */
+.section {
+  padding: 90px 40px;
+  background: white;
+}
+
+.section-header {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.section-header h2 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 12px;
+  color: #1a1a2e;
+}
+
+.section-header p {
+  font-size: 1.1rem;
+  color: #666;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* Resume Content Container */
+.resume-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Resume Card */
+.resume-card {
+  background: rgba(255, 255, 255, 0.2);
+  padding: 40px;
+  border-radius: 16px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(6px);
+  margin-bottom: 40px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.resume-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08);
+}
+
+.resume-card h3 {
+  font-size: 1.7rem;
+  margin-bottom: 25px;
+  color: #1a1a2e;
+  padding-bottom: 15px;
+  border-bottom: 2px solid rgba(14, 165, 233, 0.2);
+}
+
+/* Timeline */
+.timeline {
+  max-width: 100%;
+  margin: 0 auto;
+  position: relative;
+}
+
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 30px;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background-color: #e0e0e0;
+}
+
+.timeline-item {
+  display: flex;
+  margin-bottom: 45px;
+  position: relative;
+}
+
+.timeline-date {
+  width: 120px;
+  font-weight: 600;
+  color: #1a1a2e;
+  padding-right: 20px;
+  text-align: right;
+  font-size: 1.05rem;
+}
+
+.timeline-content {
+  flex: 1;
+  padding-left: 50px;
+}
+
+.timeline-content h4 {
+  font-size: 1.4rem;
+  margin-bottom: 8px;
+  color: #1a1a2e;
+}
+
+.timeline-content .company {
+  color: #0ea5e9;
+  font-weight: 600;
+  margin-bottom: 12px;
+  font-size: 1.1rem;
+}
+
+.timeline-content p {
+  color: #555;
+  font-size: 1.05rem;
+  margin-bottom: 15px;
+}
+
+.timeline-content ul {
+  padding-left: 20px;
+  color: #666;
+  margin-top: 10px;
+}
+
+.timeline-content li {
+  margin-bottom: 8px;
+  line-height: 1.6;
+}
+
+/* Education Card */
+.education-card {
+  background: rgba(255, 255, 255, 0.2);
+  padding: 35px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  margin-bottom: 30px;
+  transition: transform 0.3s ease;
+}
+
+.education-card:hover {
+  transform: translateY(-5px);
+}
+
+.education-card h4 {
+  font-size: 1.5rem;
+  color: #1a1a2e;
+  margin-bottom: 10px;
+}
+
+.education-card .degree {
+  font-weight: 600;
+  color: #0ea5e9;
+  margin-bottom: 8px;
+  font-size: 1.15rem;
+}
+
+.education-card p {
+  color: #555;
+  margin-bottom: 15px;
+}
+
+.education-details {
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.detail-item {
+  margin-bottom: 12px;
+  display: flex;
+  align-items: flex-start;
+}
+
+.detail-item strong {
+  min-width: 150px;
+  color: #1a1a2e;
+  font-weight: 600;
+}
+
+.detail-item span {
+  color: #666;
+  flex: 1;
+}
+
+/* Skills Grid */
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+  margin-top: 30px;
+}
+
+.skill-category {
+  background: rgba(255, 255, 255, 0.2);
+  padding: 30px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  transition: transform 0.3s ease;
+}
+
+.skill-category:hover {
+  transform: translateY(-5px);
+}
+
+.skill-category h4 {
+  font-size: 1.3rem;
+  margin-bottom: 20px;
+  color: #1a1a2e;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.skill-category h4 i {
+  color: #0ea5e9;
+}
+
+.skills-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.skill-tag {
+  background-color: rgba(14, 165, 233, 0.1);
+  color: #0ea5e9;
+  padding: 8px 16px;
+  border-radius: 50px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  border: 1px solid rgba(14, 165, 233, 0.3);
+  transition: all 0.3s ease;
+}
+
+.skill-tag:hover {
+  background-color: rgba(14, 165, 233, 0.2);
+  transform: translateY(-2px);
+}
+
+/* Certifications */
+.certifications-list {
+  list-style: none;
+  padding-left: 0;
+}
+
+.certifications-list li {
+  padding: 15px 20px;
+  background: rgba(255, 255, 255, 0.2);
+  margin-bottom: 15px;
+  border-radius: 8px;
+  border-left: 4px solid #0ea5e9;
+  transition: transform 0.3s ease;
+}
+
+.certifications-list li:hover {
+  transform: translateX(10px);
+}
+
+.certifications-list strong {
+  color: #1a1a2e;
+}
+
+/* Footer */
+.footer {
+  background: linear-gradient(180deg, #1a1a2e 0%, #16213e 100%);
+  color: white;
+  padding: 70px 40px 35px;
+  text-align: center;
+}
+
+.footer-links {
+  display: flex;
+  justify-content: center;
+  gap: 35px;
+  margin: 35px 0 50px;
+  flex-wrap: wrap;
+}
+
+.footer-link {
+  color: rgba(255, 255, 255, 0.8);
+  text-decoration: none;
+  font-size: 1.05rem;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: color 0.3s ease;
+}
+
+.footer-link:hover {
+  color: white;
+}
+
+.copyright {
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding-top: 25px;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.85rem;
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+  .nav-container {
+    padding: 0 30px;
+  }
+  
+  .resume-container {
+    padding: 0 30px;
+  }
+}
+
+@media (max-width: 992px) {
+  .resume-images {
+    grid-template-columns: 1fr;
+    gap: 20px;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  .resume-images img {
+    max-width: 100%;
+  }
+  
+  .resume-header-white h1 {
+    font-size: 2.8rem;
+  }
+  
+  .skills-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .timeline::before {
+    left: 20px;
+  }
+  
+  .timeline-date {
+    width: 100px;
+  }
+}
+
+@media (max-width: 768px) {
+  body {
+    padding-top: 70px;
+  }
+  
+  .nav-container {
+    padding: 0 1.5rem;
+  }
+  
+  .section {
+    padding: 70px 20px;
+  }
+  
+  .resume-header-white {
+    padding: 70px 20px 30px;
+  }
+  
+  .resume-header-white h1 {
+    font-size: 2.2rem;
+  }
+  
+  .resume-images {
+    gap: 15px;
+  }
+  
+  .resume-images img {
+    border-radius: 8px;
+  }
+  
+  .resume-card {
+    padding: 25px;
+  }
+  
+  .timeline::before {
+    left: 15px;
+  }
+  
+  .timeline-date {
+    width: 80px;
+    font-size: 0.95rem;
+    padding-right: 15px;
+  }
+  
+  .timeline-content {
+    padding-left: 30px;
+  }
+  
+  .footer {
+    padding: 50px 20px 25px;
+  }
+  
+  .footer-links {
+    gap: 20px;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .detail-item {
+    flex-direction: column;
+    gap: 5px;
+  }
+  
+  .detail-item strong {
+    min-width: auto;
+  }
+}
+</style>
+</head>
+
+<body>
+<!-- Top Navigation Bar -->
+<nav class="top-nav">
+  <div class="nav-container">
+    <div class="logo">Yanting Liu</div>
+    <button class="menu-toggle" id="menuToggle"><i class="fas fa-bars"></i></button>
+    <div class="nav-links" id="navLinks">
+      <a href="index.html">Home</a>
+      <a href="resume.html" class="active">Resume</a>
+      <a href="projects.html">Projects</a>
+      <a href="#contact">Contact</a>
+    </div>
+    <div class="social-icons">
+      <a href="https://linkedin.com/in/yantingliu1" target="_blank"><i class="fab fa-linkedin"></i></a>
+      <a href="#"><i class="fab fa-github"></i></a>
+    </div>
+  </div>
+</nav>
+
+<!-- Main Content -->
+<main class="main-content">
+  <!-- Resume Header - White with Images -->
+  <section class="resume-header-white">
+    <div class="resume-header-content">
+      <h1>Resume</h1>
+      <p>Professional experience, education, and technical skills</p>
+      <!-- Updated resume link with your Google Docs URL -->
+      <a href="https://docs.google.com/document/d/1dq_VMXGfo0FgT0VxJI6HappjaN490roT/edit?usp=drive_link&ouid=110223188141338185241&rtpof=true&sd=true" class="download-btn" target="_blank">
+        <i class="fas fa-download"></i> View/Download Resume
+      </a>
+    </div>
+    
+    <div class="resume-images-container">
+      <div class="resume-images">
+        <img src="resume1.jpg" alt="Resume Page 1">
+        <img src="resume2.jpg" alt="Resume Page 2">
+      </div>
+    </div>
+  </section>
+
+  <!-- Experience Section -->
+  <section class="section">
+    <div class="resume-container">
+      <div class="resume-card">
+        <h3>Work Experience</h3>
+        
+        <div class="timeline">
+          <div class="timeline-item">
+            <div class="timeline-date">Winter 2024</div>
+            <div class="timeline-content">
+              <h4>AI Video Automation Engineer (Co-op)</h4>
+              <div class="company">AniNews</div>
+              <p>Built an automated subtitle generation system using OpenAI's Whisper, reducing content processing time from hours to minutes. Implemented stable-ts for enhanced synchronization accuracy, streamlining video production workflows for the content team.</p>
+              <ul>
+                <li>Developed end-to-end Python automation pipeline for video subtitle generation</li>
+                <li>Integrated OpenAI Whisper and Stable-ts models for accurate speech-to-text conversion</li>
+                <li>Reduced manual subtitle creation time by 90%</li>
+                <li>Implemented FFmpeg for video processing and subtitle synchronization</li>
+              </ul>
+            </div>
+          </div>
+          
+          <div class="timeline-item">
+            <div class="timeline-date">Fall 2025</div>
+            <div class="timeline-content">
+              <h4>Business Analyst & Web Developer</h4>
+              <div class="company">Mi Bowl Group Inc</div>
+              <p>Developed and maintained a custom Shopify platform with advanced analytics integration. Created automated data processing pipelines in Python that improved operational efficiency while delivering actionable business insights through Power BI dashboards.</p>
+              <ul>
+                <li>Led full-stack Shopify development with custom Liquid templates and JavaScript</li>
+                <li>Improved conversion rates by 25% through optimized e-commerce features</li>
+                <li>Automated product data management, reducing manual processing time by 30%</li>
+                <li>Created Power BI dashboards for real-time business analytics</li>
+              </ul>
+            </div>
+          </div>
+          
+          <div class="timeline-item">
+            <div class="timeline-date">2022-2024</div>
+            <div class="timeline-content">
+              <h4>Math & Science Tutor</h4>
+              <div class="company">Math Tutoring Club</div>
+              <p>Managed academic support programs for 10+ students, developing personalized learning strategies that improved average test scores by 20%. Coordinated with educators to align tutoring sessions with curriculum objectives.</p>
+              <ul>
+                <li>Developed customized lesson plans for students in grades 9-12</li>
+                <li>Improved student test scores by an average of 20%</li>
+                <li>Coordinated with classroom teachers to align tutoring with curriculum</li>
+                <li>Mentored students in advanced mathematics and physics concepts</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Education Section -->
+      <div class="resume-card">
+        <h3>Education</h3>
+        
+        <div class="education-card">
+          <h4>University of Waterloo</h4>
+          <div class="degree">Bachelor of Applied Science in Computer Engineering</div>
+          <p>Software Engineering Option<br>
+          2024 – Present (Expected graduation: 2029)</p>
+          
+          <div class="education-details">
+            <div class="detail-item">
+              <strong>Academic Recognition:</strong>
+              <span>President's Scholar Distinction Award (2024) | Dean's List</span>
+            </div>
+            <div class="detail-item">
+              <strong>Core Coursework:</strong>
+              <span>Digital Circuits & Systems, Object-Oriented Programming, Software Design, Algorithms, Computer Architecture, Embedded Systems</span>
+            </div>
+            <div class="detail-item">
+              <strong>GPA:</strong>
+              <span>3.8/4.0</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Skills Section -->
+      <div class="resume-card">
+        <h3>Technical Skills</h3>
+        
+        <div class="skills-grid">
+          <div class="skill-category">
+            <h4><i class="fas fa-code"></i> Programming Languages</h4>
+            <div class="skills-list">
+              <span class="skill-tag">Python</span>
+              <span class="skill-tag">Java</span>
+              <span class="skill-tag">C++</span>
+              <span class="skill-tag">VHDL</span>
+              <span class="skill-tag">JavaScript</span>
+              <span class="skill-tag">HTML/CSS</span>
+              <span class="skill-tag">SQL</span>
+              <span class="skill-tag">MATLAB</span>
+            </div>
+          </div>
+          
+          <div class="skill-category">
+            <h4><i class="fas fa-tools"></i> Development Tools</h4>
+            <div class="skills-list">
+              <span class="skill-tag">Git & GitHub</span>
+              <span class="skill-tag">Shopify</span>
+              <span class="skill-tag">VS Code</span>
+              <span class="skill-tag">Quartus Prime</span>
+              <span class="skill-tag">ModelSim</span>
+              <span class="skill-tag">Power BI</span>
+              <span class="skill-tag">Jira</span>
+              <span class="skill-tag">Docker</span>
+            </div>
+          </div>
+          
+          <div class="skill-category">
+            <h4><i class="fas fa-microchip"></i> Engineering Skills</h4>
+            <div class="skills-list">
+              <span class="skill-tag">FPGA Design</span>
+              <span class="skill-tag">Digital Logic</span>
+              <span class="skill-tag">Embedded Systems</span>
+              <span class="skill-tag">Software Architecture</span>
+              <span class="skill-tag">AI/ML Automation</span>
+              <span class="skill-tag">Computer Architecture</span>
+              <span class="skill-tag">Circuit Design</span>
+            </div>
+          </div>
+          
+          <div class="skill-category">
+            <h4><i class="fas fa-layer-group"></i> Frameworks & Libraries</h4>
+            <div class="skills-list">
+              <span class="skill-tag">OpenAI Whisper</span>
+              <span class="skill-tag">Stable-ts</span>
+              <span class="skill-tag">FFmpeg</span>
+              <span class="skill-tag">React</span>
+              <span class="skill-tag">Node.js</span>
+              <span class="skill-tag">Express.js</span>
+              <span class="skill-tag">Pandas</span>
+              <span class="skill-tag">NumPy</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Certifications Section -->
+      <div class="resume-card">
+        <h3>Certifications & Awards</h3>
+        
+        <ul class="certifications-list">
+          <li><strong>President's Scholar Distinction Award</strong> — University of Waterloo (2024)</li>
+          <li><strong>Dean's List</strong> — University of Waterloo (2024)</li>
+          <li><strong>Google IT Automation with Python Professional Certificate</strong> — Coursera (Expected 2024)</li>
+          <li><strong>Machine Learning Specialization</strong> — Stanford Online (Expected 2024)</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer" id="contact">
+    <div class="section-header">
+      <h2 style="color: white;">Let's Connect</h2>
+      <p style="color: rgba(255, 255, 255, 0.8);">Always interested in connecting with professionals and organizations working on challenging technical problems.</p>
+    </div>
+    
+    <div class="footer-links">
+      <a href="https://linkedin.com/in/yantingliu1" class="footer-link" target="_blank">
+        <i class="fab fa-linkedin"></i> LinkedIn
+      </a>
+      <a href="mailto:y464liu@uwaterloo.ca" class="footer-link">
+        <i class="fas fa-envelope"></i> Email
+      </a>
+      <a href="projects.html" class="footer-link">
+        <i class="fas fa-laptop-code"></i> Projects
+      </a>
+      <a href="index.html" class="footer-link">
+        <i class="fas fa-home"></i> Home
+      </a>
+    </div>
+    
+    <div class="copyright">
+      <p>&copy; 2024 Yanting Liu. All rights reserved.</p>
+      <p>Computer Engineering Portfolio</p>
+    </div>
+  </footer>
+</main>
+
+<script>
+// Mobile menu toggle
+const menuToggle = document.getElementById('menuToggle');
+const navLinks = document.getElementById('navLinks');
+
+if (menuToggle) {
+  menuToggle.addEventListener('click', () => {
+    navLinks.classList.toggle('active');
+    const icon = menuToggle.querySelector('i');
+    if (navLinks.classList.contains('active')) {
+      icon.classList.remove('fa-bars');
+      icon.classList.add('fa-times');
+    } else {
+      icon.classList.remove('fa-times');
+      icon.classList.add('fa-bars');
+    }
+  });
+
+  // Close mobile menu when clicking a link
+  document.querySelectorAll('.nav-links a').forEach(link => {
+    link.addEventListener('click', () => {
+      navLinks.classList.remove('active');
+      const icon = menuToggle.querySelector('i');
+      if (icon) {
+        icon.classList.remove('fa-times');
+        icon.classList.add('fa-bars');
+      }
+    });
+  });
+}
+
+// Smooth scrolling for anchor links on the same page
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+  anchor.addEventListener('click', function (e) {
+    e.preventDefault();
+    
+    const targetId = this.getAttribute('href');
+    if (targetId === '#') return;
+    
+    const targetElement = document.querySelector(targetId);
+    if (targetElement) {
+      window.scrollTo({
+        top: targetElement.offsetTop - 80,
+        behavior: 'smooth'
+      });
+    }
+  });
+});
+
+// Highlight active nav link based on current page
+const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+const navLinksAll = document.querySelectorAll('.nav-links a');
+
+navLinksAll.forEach(link => {
+  const linkPage = link.getAttribute('href');
+  if (currentPage === linkPage) {
+    link.classList.add('active');
+  } else {
+    link.classList.remove('active');
+  }
+});
+
+// Highlight the resume link on this page
+document.addEventListener('DOMContentLoaded', function() {
+  const resumeLink = document.querySelector('a[href="resume.html"]');
+  if (resumeLink && currentPage.includes('resume')) {
+    resumeLink.classList.add('active');
+  }
+});
+</script>
+</body>
+</html>

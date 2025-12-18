@@ -1,0 +1,915 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Resume — Yanting Liu</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+/* ================= RESET & BASE ================= */
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+  font-family: 'Inter', sans-serif;
+  line-height: 1.6;
+  color: #333;
+  background-color: #f8f9fa;
+  overflow-x: hidden;
+  padding-top: 70px;
+}
+
+/* ================= NAVBAR ================= */
+.top-nav {
+  position: fixed;
+  top: 0; left: 0; width: 100%; height: 70px;
+  background: white;
+  display: flex; align-items: center; justify-content: center;
+  z-index: 1000;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+}
+
+.nav-container {
+  width: 100%; max-width: 1400px;
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 0 2rem;
+}
+
+.logo { font-size:1.4rem; font-weight:700; color:#1a1a2e; }
+
+.nav-links { display:flex; gap:2rem; }
+.nav-links a {
+  color:#666; text-decoration:none; font-weight:500; position:relative; padding:0.5rem 0;
+}
+.nav-links a:hover { color:#0ea5e9; }
+.nav-links a.active { color:#1a1a2e; font-weight:600; }
+.nav-links a.active::after {
+  content:'';
+  position:absolute; bottom:0; left:0; width:100%; height:2px;
+  background:#0ea5e9;
+}
+
+.social-icons { display:flex; gap:1rem; }
+.social-icons a { color:#666; font-size:1.1rem; transition:0.3s; }
+.social-icons a:hover { color:#0ea5e9; transform:translateY(-2px); }
+
+.menu-toggle { display:none; background:none; border:none; font-size:1.3rem; cursor:pointer; }
+
+@media(max-width:768px){
+  .menu-toggle { display:block; }
+  .nav-links {
+    position: fixed; top:70px; left:0; width:100%;
+    background:white; flex-direction:column; padding:1.5rem; gap:1rem;
+    transform: translateY(-100%); opacity:0; transition:0.3s ease;
+  }
+  .nav-links.active { transform: translateY(0); opacity:1; }
+  .social-icons { display:none; }
+}
+
+
+/* ==================== PAGE HEADER ==================== */
+.page-header {
+  padding: 160px 20px 80px;
+  background: linear-gradient(135deg, #1a1a2e 0%, #0ea5e9 100%);
+  color: white;
+  text-align: center;
+  margin-top: 0;
+}
+
+.page-header h1 {
+  font-size: 3.5rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+  color: white;
+}
+
+.page-header p {
+  font-size: 1.2rem;
+  max-width: 700px;
+  margin: 0 auto;
+  opacity: 0.9;
+  line-height: 1.6;
+}
+
+/* ==================== PORTFOLIO SECTION ==================== */
+.portfolio-highlights {
+  padding: 100px 20px;
+  background: #f8f9fa;
+}
+
+.portfolio-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.section-header {
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+.section-header h2 {
+  font-size: 2.8rem;
+  font-weight: 700;
+  color: #1a1a2e;
+  margin-bottom: 15px;
+  position: relative;
+  display: inline-block;
+}
+
+.section-header h2::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 4px;
+  background: #0ea5e9;
+  border-radius: 2px;
+}
+
+.section-header p {
+  font-size: 1.2rem;
+  color: #666;
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+/* Portfolio Item Styles (From Index) */
+.portfolio-item {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  margin: 80px 0;
+  align-items: center;
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.portfolio-item.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.portfolio-item:nth-child(even) {
+  direction: rtl;
+}
+
+.portfolio-item:nth-child(even) > * {
+  direction: ltr;
+}
+
+.portfolio-text {
+  text-align: left;
+  padding: 30px;
+}
+
+.portfolio-text h3 {
+  font-size: 1.8rem;
+  color: #1a1a2e;
+  margin-bottom: 20px;
+  line-height: 1.3;
+}
+
+.portfolio-text p {
+  font-size: 1.1rem;
+  line-height: 1.7;
+  color: #666;
+  margin-bottom: 1.5rem;
+}
+
+.tech-stack {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 2rem;
+}
+
+.tech-tag {
+  font-weight: 500;
+  background: rgba(33, 61, 109, 0.1);
+  color: #1a1a2e;
+  padding: 8px 18px;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+}
+
+.tech-tag:hover {
+  background: #1a1a2e;
+  color: white;
+  transform: translateY(-2px);
+}
+
+.portfolio-media {
+  position: relative;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+  transition: all 0.3s ease;
+  height: 300px;
+  cursor: pointer;
+}
+
+.portfolio-media:hover {
+  transform: translateY(-10px) scale(1.02);
+  box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+}
+
+.portfolio-media img,
+.portfolio-media video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.portfolio-media:hover img,
+.portfolio-media:hover video {
+  transform: scale(1.05);
+}
+
+.media-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.3), transparent);
+  display: flex;
+  align-items: flex-end;
+  padding: 20px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.portfolio-media:hover .media-overlay {
+  opacity: 1;
+}
+
+.media-overlay span {
+  font-weight: 600;
+  color: white;
+  font-size: 0.9rem;
+  background: rgba(0,0,0,0.7);
+  padding: 8px 16px;
+  border-radius: 20px;
+}
+
+/* ==================== FOOTER ==================== */
+.footer {
+  background: #1a1a2e;
+  color: white;
+  padding: 80px 20px;
+  position: relative;
+  margin-top: 50px;
+}
+
+.footer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(to right, #0ea5e9, #1a1a2e);
+}
+
+.footer-container {
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.footer h2 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 25px;
+}
+
+.footer p {
+  font-size: 1.2rem;
+  opacity: 0.9;
+  margin-bottom: 40px;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.6;
+}
+
+.footer-links {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin-bottom: 40px;
+}
+
+.footer-link {
+  padding: 14px 32px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  color: white;
+  text-decoration: none;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  transition: all 0.3s ease;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.footer-link:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.copyright {
+  margin-top: 40px;
+  padding-top: 20px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  font-size: 0.9rem;
+  opacity: 0.7;
+}
+
+/* ==================== MEDIA POPUP ==================== */
+.media-popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  backdrop-filter: blur(4px);
+}
+
+.media-popup.active {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.popup-content {
+  position: relative;
+  max-width: 90%;
+  max-height: 90%;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+}
+
+.popup-content img, .popup-content video {
+  max-width: 100%;
+  max-height: 80vh;
+  display: block;
+  margin: 0 auto;
+  border-radius: 4px;
+}
+
+.close-popup {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 50px;
+  height: 50px;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 28px;
+  color: #333;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: none;
+  z-index: 10000;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.close-popup:hover {
+  background: white;
+  transform: rotate(90deg) scale(1.1);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+}
+
+.popup-info {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
+  color: white;
+  padding: 30px;
+  text-align: left;
+}
+
+.popup-info h3 {
+  font-weight: 600;
+  margin-bottom: 10px;
+  font-size: 1.5rem;
+}
+
+.popup-info p {
+  opacity: 0.9;
+  line-height: 1.6;
+}
+
+/* ==================== BUTTON STYLES ==================== */
+.btn {
+  padding: 14px 32px;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 1rem;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  border: none;
+  font-family: 'Inter', sans-serif;
+}
+
+.btn-primary {
+  background: #1a1a2e;
+  color: white;
+  box-shadow: 0 4px 12px rgba(33, 61, 109, 0.15);
+}
+
+.btn-primary:hover {
+  background: #0ea5e9;
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(33, 61, 109, 0.2);
+}
+
+.btn-secondary {
+  background: rgba(33, 61, 109, 0.05);
+  color: #1a1a2e;
+  border: 1px solid #ddd;
+}
+
+.btn-secondary:hover {
+  background: rgba(33, 61, 109, 0.1);
+  transform: translateY(-3px);
+  border-color: #0ea5e9;
+}
+
+/* ==================== RESPONSIVE DESIGN ==================== */
+@media (max-width: 1024px) {
+  .portfolio-item {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+  
+  .portfolio-text, .portfolio-media {
+    max-width: 600px;
+    margin: 0 auto;
+  }
+}
+
+@media (max-width: 768px) {
+  .navbar {
+    padding: 0 20px;
+  }
+  
+  .nav-container {
+    padding: 0;
+  }
+  
+  .menu-toggle {
+    display: block;
+  }
+  
+  .nav-links {
+    position: fixed;
+    top: 80px;
+    left: 0;
+    right: 0;
+    background: #1a1a2e;
+    flex-direction: column;
+    padding: 20px;
+    gap: 10px;
+    transform: translateY(-100%);
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 0 0 20px 20px;
+  }
+  
+  .nav-links.active {
+    transform: translateY(0);
+    opacity: 1;
+    visibility: visible;
+  }
+  
+  .nav-link {
+    width: 100%;
+    justify-content: center;
+    padding: 16px;
+  }
+  
+  .page-header {
+    padding: 140px 20px 60px;
+  }
+  
+  .page-header h1 {
+    font-size: 2.8rem;
+  }
+  
+  .section-header h2 {
+    font-size: 2.2rem;
+  }
+  
+  .portfolio-text, .portfolio-media {
+    padding: 20px;
+  }
+  
+  .portfolio-text h3 {
+    font-size: 1.5rem;
+  }
+  
+  .footer-links {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .footer-link {
+    width: 100%;
+    max-width: 300px;
+  }
+}
+
+@media (max-width: 480px) {
+  .page-header h1 {
+    font-size: 2.2rem;
+  }
+  
+  .page-header p {
+    font-size: 1rem;
+  }
+  
+  .section-header h2 {
+    font-size: 1.8rem;
+  }
+  
+  .portfolio-media {
+    height: 250px;
+  }
+  
+  .footer h2 {
+    font-size: 2rem;
+  }
+  
+  .popup-content {
+    max-width: 95%;
+    max-height: 95%;
+  }
+  
+  .close-popup {
+    width: 40px;
+    height: 40px;
+    top: 15px;
+    right: 15px;
+    font-size: 24px;
+  }
+  
+  .popup-info {
+    padding: 20px;
+  }
+  
+  .popup-info h3 {
+    font-size: 1.2rem;
+  }
+  
+  .popup-info p {
+    font-size: 0.9rem;
+  }
+}
+
+/* ==================== ANIMATIONS ==================== */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in {
+  animation: fadeInUp 0.6s ease forwards;
+}
+
+.delay-1 { animation-delay: 0.2s; }
+.delay-2 { animation-delay: 0.4s; }
+.delay-3 { animation-delay: 0.6s; }
+</style>
+</head>
+
+<body>
+<!-- Navigation --><nav class="top-nav">
+  <div class="nav-container">
+    <div class="logo">Yanting Liu</div>
+    <button class="menu-toggle" id="menuToggle"><i class="fas fa-bars"></i></button>
+    <div class="nav-links" id="navLinks">
+      <a href="index.html">Home</a>
+      <a href="resume.html" >Resume</a>
+      <a href="projects.html"class="active">Projects</a>
+      <a href="#contact">Contact</a>
+    </div>
+    <div class="social-icons">
+      <a href="https://linkedin.com/in/yantingliu1" target="_blank"><i class="fab fa-linkedin"></i></a>
+      <a href="#"><i class="fab fa-github"></i></a>
+    </div>
+  </div>
+</nav>
+
+
+<!-- Page Header -->
+
+<!-- Portfolio Highlights Section -->
+<section class="portfolio-highlights">
+  <div class="portfolio-container">
+    <div class="section-header">
+      <h2>Featured Projects</h2>
+      <p>Explore my complete collection of technical projects that demonstrate practical applications of computer engineering principles</p>
+    </div>
+    
+    <!-- AI Video Automation Project -->
+    <div class="portfolio-item">
+      <div class="portfolio-text">
+        <h3>AI-Powered Video Subtitle Automation</h3>
+        <p>Developed an end-to-end Python automation pipeline using OpenAI's Whisper and Stable-ts models to generate and synchronize subtitles for YouTube content. Reduced manual subtitle creation time by 90% while improving accuracy through advanced speech recognition algorithms.</p>
+        <div class="tech-stack">
+          <span class="tech-tag">Python</span>
+          <span class="tech-tag">OpenAI Whisper</span>
+          <span class="tech-tag">Stable-ts</span>
+          <span class="tech-tag">FFmpeg</span>
+          <span class="tech-tag">AI Automation</span>
+        </div>
+      </div>
+      <div class="portfolio-media" data-media="videoEditing.png" data-title="AI Video Automation" data-desc="Automated subtitle generation pipeline">
+        <img src="videoEditing.png" alt="AI Video Automation Pipeline">
+        <div class="media-overlay">
+          <span>Click to view</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- E-commerce Platform Project -->
+    <div class="portfolio-item">
+      <div class="portfolio-text">
+        <h3>Enterprise E-commerce Platform</h3>
+        <p>Led full-stack Shopify development and business analytics initiatives, creating custom e-commerce features that improved conversion rates by 25%. Automated product data management through Python scripts, reducing manual processing time by 30% while maintaining 99% data accuracy.</p>
+        <div class="tech-stack">
+          <span class="tech-tag">Shopify</span>
+          <span class="tech-tag">JavaScript</span>
+          <span class="tech-tag">Python</span>
+          <span class="tech-tag">Liquid</span>
+          <span class="tech-tag">Power BI</span>
+          <span class="tech-tag">Full-Stack</span>
+        </div>
+      </div>
+      <div class="portfolio-media" data-media="deliveryScreenshot.png" data-title="E-commerce Platform" data-desc="Custom Shopify development">
+        <img src="deliveryScreenshot.png" alt="E-commerce Platform Development">
+        <div class="media-overlay">
+          <span>Click to view</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- FPGA HVAC Controller Project -->
+    <div class="portfolio-item">
+      <div class="portfolio-text">
+        <h3>FPGA-Based Intelligent HVAC Controller</h3>
+        <p>Architected a VHDL-based HVAC control system on FPGA hardware, implementing a finite state machine with safety features including vacation mode and automatic shutdown protocols. The design demonstrated robust digital logic principles and real-time system management capabilities.</p>
+        <div class="tech-stack">
+          <span class="tech-tag">VHDL</span>
+          <span class="tech-tag">FPGA</span>
+          <span class="tech-tag">ModelSim</span>
+          <span class="tech-tag">Digital Logic</span>
+          <span class="tech-tag">Finite State Machine</span>
+        </div>
+      </div>
+      <div class="portfolio-media" data-media="hvac_demo.mp4" data-type="video" data-title="FPGA HVAC Controller" data-desc="HVAC control system with safety features">
+        <video autoplay loop muted playsinline>
+          <source src="hvac_demo.mp4" type="video/mp4">
+        </video>
+        <div class="media-overlay">
+          <span>Click to view</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="footer-container">
+    <h2>Let's Connect</h2>
+    <p>Always interested in connecting with professionals and organizations working on challenging technical problems. Let's discuss how we can create innovative solutions together.</p>
+    
+    <div class="footer-links">
+      <a href="https://linkedin.com/in/yantingliu1" class="footer-link" target="_blank">
+        <i class="fab fa-linkedin"></i>
+        LinkedIn Profile
+      </a>
+      <a href="mailto:y464liu@uwaterloo.ca" class="footer-link">
+        <i class="fas fa-envelope"></i>
+        Email Me
+      </a>
+      <a href="index.html" class="footer-link">
+        <i class="fas fa-home"></i>
+        Back to Home
+      </a>
+      <a href="resume.html" class="footer-link">
+        <i class="fas fa-file-alt"></i>
+        View Resume
+      </a>
+    </div>
+    
+    <div class="copyright">
+      <p>&copy; 2024 Yanting Liu. All rights reserved.</p>
+      <p>Computer Engineering Portfolio</p>
+    </div>
+  </div>
+</footer>
+
+<!-- Media Popup -->
+<div class="media-popup" id="mediaPopup">
+  <button class="close-popup" id="closePopup">×</button>
+  <div class="popup-content">
+    <img id="popupImage" alt="">
+    <video id="popupVideo" controls autoplay loop></video>
+    <div class="popup-info">
+      <h3 id="popupTitle"></h3>
+      <p id="popupDesc"></p>
+    </div>
+  </div>
+</div>
+
+<script>
+// Mobile Menu Toggle
+const menuToggle = document.querySelector('.menu-toggle');
+const navLinks = document.querySelector('.nav-links');
+const menuIcon = menuToggle.querySelector('i');
+
+menuToggle.addEventListener('click', () => {
+  navLinks.classList.toggle('active');
+  menuIcon.classList.toggle('fa-bars');
+  menuIcon.classList.toggle('fa-times');
+});
+
+// Close mobile menu when clicking a link
+document.querySelectorAll('.nav-link').forEach(link => {
+  link.addEventListener('click', () => {
+    navLinks.classList.remove('active');
+    menuIcon.classList.remove('fa-times');
+    menuIcon.classList.add('fa-bars');
+  });
+});
+
+// Smooth scroll for anchor links
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+  anchor.addEventListener('click', function(e) {
+    e.preventDefault();
+    
+    const targetId = this.getAttribute('href');
+    if (targetId === '#') return;
+    
+    const targetElement = document.querySelector(targetId);
+    if (targetElement) {
+      window.scrollTo({
+        top: targetElement.offsetTop - 80,
+        behavior: 'smooth'
+      });
+    }
+  });
+});
+
+// Animation on scroll for portfolio items
+const portfolioObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, {
+  threshold: 0.1,
+  rootMargin: '0px 0px -50px 0px'
+});
+
+// Observe portfolio items for animation
+document.querySelectorAll('.portfolio-item').forEach(el => {
+  portfolioObserver.observe(el);
+});
+
+// Media Popup functionality
+const mediaPopup = document.getElementById('mediaPopup');
+const popupImage = document.getElementById('popupImage');
+const popupVideo = document.getElementById('popupVideo');
+const popupTitle = document.getElementById('popupTitle');
+const popupDesc = document.getElementById('popupDesc');
+const closePopup = document.getElementById('closePopup');
+
+// Add click handlers to all media containers
+document.querySelectorAll('.portfolio-media').forEach(container => {
+  container.addEventListener('click', (e) => {
+    e.preventDefault();
+    
+    const mediaSrc = container.getAttribute('data-media');
+    const mediaType = container.getAttribute('data-type') || 'image';
+    const title = container.getAttribute('data-title') || '';
+    const desc = container.getAttribute('data-desc') || '';
+    
+    // Open popup
+    if (mediaType === 'video') {
+      popupVideo.src = mediaSrc;
+      popupVideo.style.display = 'block';
+      popupImage.style.display = 'none';
+      popupVideo.play();
+    } else {
+      popupImage.src = mediaSrc;
+      popupImage.style.display = 'block';
+      popupVideo.style.display = 'none';
+      popupVideo.pause();
+    }
+    
+    popupTitle.textContent = title;
+    popupDesc.textContent = desc;
+    mediaPopup.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  });
+});
+
+// Close popup handlers
+closePopup.addEventListener('click', () => {
+  mediaPopup.classList.remove('active');
+  popupVideo.pause();
+  popupVideo.src = '';
+  document.body.style.overflow = 'auto';
+  
+  // Reset after transition
+  setTimeout(() => {
+    popupImage.src = '';
+    popupImage.style.display = 'none';
+    popupVideo.style.display = 'none';
+  }, 300);
+});
+
+// Close popup when clicking outside
+mediaPopup.addEventListener('click', (e) => {
+  if (e.target === mediaPopup) {
+    closePopup.click();
+  }
+});
+
+// Close popup with Escape key
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape' && mediaPopup.classList.contains('active')) {
+    closePopup.click();
+  }
+});
+
+// Initialize with fade-in for header elements
+document.querySelectorAll('.page-header .fade-in').forEach(el => {
+  el.style.opacity = '1';
+  el.style.transform = 'translateY(0)';
+});
+
+// Skill tag hover effects
+document.querySelectorAll('.tech-tag').forEach(tag => {
+  tag.addEventListener('mouseenter', () => {
+    tag.style.transform = 'translateY(-2px)';
+  });
+  
+  tag.addEventListener('mouseleave', () => {
+    tag.style.transform = 'translateY(0)';
+  });
+});
+
+// Initialize page
+document.addEventListener('DOMContentLoaded', () => {
+  console.log('Projects page loaded successfully!');
+});
+</script>
+</body>
+</html>
