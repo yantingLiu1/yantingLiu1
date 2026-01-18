@@ -259,6 +259,83 @@ body {
   border-radius: 20px;
 }
 
+/* ==================== ART COLLAGE SECTION ==================== */
+.art-collage {
+  padding: 100px 20px;
+  background: white;
+}
+
+.collage-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.collage-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 30px;
+  margin-top: 40px;
+}
+
+.collage-item {
+  position: relative;
+  border-radius: 16px;
+  overflow: hidden;
+  height: 300px;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+  transition: all 0.3s ease;
+}
+
+.collage-item:hover {
+  transform: translateY(-10px) scale(1.02);
+  box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+}
+
+.collage-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.collage-item:hover img {
+  transform: scale(1.05);
+}
+
+.collage-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.3), transparent);
+  display: flex;
+  align-items: flex-end;
+  padding: 20px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.collage-item:hover .collage-overlay {
+  opacity: 1;
+}
+
+.collage-overlay span {
+  font-weight: 600;
+  color: white;
+  font-size: 0.9rem;
+  background: rgba(0,0,0,0.7);
+  padding: 8px 16px;
+  border-radius: 20px;
+}
+
+@media (max-width: 768px) {
+  .collage-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
 /* ==================== FOOTER ==================== */
 .footer {
   background: #1a1a2e;
@@ -721,6 +798,46 @@ body {
   </div>
 </section>
 
+<!-- Art Collage Section -->
+<section class="art-collage">
+  <div class="collage-container">
+    <div class="section-header">
+      <h2>Art & Design</h2>
+      <p>A collection of creative works showcasing visual design and artistic expression alongside technical projects</p>
+    </div>
+    
+    <div class="collage-grid">
+      <div class="collage-item" data-media="3a.jpg">
+        <img src="3a.jpg" alt="Artwork 1">
+        <div class="collage-overlay">
+          <span>Click to view</span>
+        </div>
+      </div>
+      
+      <div class="collage-item" data-media="2a.jpg">
+        <img src="2a.jpg" alt="Artwork 2">
+        <div class="collage-overlay">
+          <span>Click to view</span>
+        </div>
+      </div>
+      
+      <div class="collage-item" data-media="1a.jpg">
+        <img src="1a.jpg" alt="Artwork 3">
+        <div class="collage-overlay">
+          <span>Click to view</span>
+        </div>
+      </div>
+      
+      <div class="collage-item" data-media="4a.jpg">
+        <img src="4a.jpg" alt="Artwork 4">
+        <div class="collage-overlay">
+          <span>Click to view</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- Footer -->
 <footer class="footer">
   <div class="footer-container">
@@ -830,8 +947,8 @@ const popupTitle = document.getElementById('popupTitle');
 const popupDesc = document.getElementById('popupDesc');
 const closePopup = document.getElementById('closePopup');
 
-// Add click handlers to all media containers
-document.querySelectorAll('.portfolio-media').forEach(container => {
+// Add click handlers to all media containers (including collage items)
+document.querySelectorAll('.portfolio-media, .collage-item').forEach(container => {
   container.addEventListener('click', (e) => {
     e.preventDefault();
     
